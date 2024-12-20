@@ -1,9 +1,17 @@
 <script lang="ts">
     import Icon from '@iconify/svelte';
     import './styles.scss';
+    import { setContext, type Snippet } from 'svelte';
+    import { writable, type Writable } from 'svelte/store';
 
     let loggedIn = $state(false);
     let {children} = $props();
+
+    let nav_content = setContext<Writable<Snippet | null>>("layout", writable(null));
+
+    function sign_out() {
+
+    }
 </script>
 
 <nav class="top-nav">
@@ -11,23 +19,37 @@
         <h1>inscribe</h1>
     </div>
     <div class="user-nav-menu">
-        <h2>forum</h2>
+        {#if $nav_content != null}
+            {@render $nav_content()}
+        {/if}
+
+        <a href="/forum">
+            forum
+        </a>
         {#if loggedIn}
-        <h2>notebooks</h2>
+        <a href="/notebooks">
+            notebooks
+        </a>
         {/if}
         <div class="user-nav-buttons">
             {#if !loggedIn}
-            <Icon icon="carbon:user-avatar-filled" width="48" height="48"/>
+            <a href="/login">
+                <Icon icon="carbon:user-avatar-filled" width="48" height="48"/>
+            </a>
             {:else}
-            <Icon icon="carbon:gears" width="48" height="48"/>
-            <Icon icon="solar:exit-linear" width="48" height="48"/>
+            <a href="/[userId]/settings">
+                <Icon icon="carbon:gears" width="48" height="48"/>
+            </a>
+            <a href="/login">
+                <Icon icon="carbon:user-avatar-filled" width="48" height="48"/>
+            </a>
+            <button onclick={()=>sign_out()}>
+                <Icon icon="solar:exit-linear" width="48" height="48"/>
+            </button>
             {/if}
         </div>
-        
     </div>
-    
 </nav>
-
 <style lang="scss">
     .page-name {
         display: flex;
@@ -50,7 +72,7 @@
         justify-content: center;
     }
 
-    .user-nav-menu h2 {
+    .user-nav-menu a {
         margin: 0;
         font-weight: 400;
         font-size: 32px;
@@ -71,6 +93,10 @@
         height: 10dvh;
     }
 
+    a {
+        color: inherit;
+        text-decoration: inherit;
+    }
 </style>
 
 {@render children()}
