@@ -3,12 +3,12 @@
     import './styles.scss';
     import { setContext, type Snippet } from 'svelte';
     import { writable, type Writable } from 'svelte/store';
+    import { page } from '$app/state';
 
+    const UNWANTED_URLS = ["/register", "/login", "/forgot_password", "/forgot_password_success"]
     let loggedIn = $state(false);
     let {children} = $props();
-
     let nav_content = setContext<Writable<Snippet | null>>("layout", writable(null));
-
     function sign_out() {
 
     }
@@ -16,38 +16,39 @@
 
 <nav class="top-nav">
     <div class="page-name">
-        <h1>inscribe</h1>
+        <a href="/">inscribe</a>
     </div>
     <div class="user-nav-menu">
         {#if $nav_content != null}
             {@render $nav_content()}
         {/if}
-
-        <a href="/forum">
-            forum
-        </a>
-        {#if loggedIn}
-        <a href="/notebooks">
-            notebooks
-        </a>
-        {/if}
-        <div class="user-nav-buttons">
-            {#if !loggedIn}
-            <a href="/login">
-                <Icon icon="carbon:user-avatar-filled" width="48" height="48"/>
+        {#if !(UNWANTED_URLS.includes(page.url.pathname))}
+            <a href="/forum">
+                forum
             </a>
-            {:else}
-            <a href="/[userId]/settings">
-                <Icon icon="carbon:gears" width="48" height="48"/>
+            {#if loggedIn}
+            <a href="/notebooks">
+                notebooks
             </a>
-            <a href="/login">
-                <Icon icon="carbon:user-avatar-filled" width="48" height="48"/>
-            </a>
-            <button onclick={()=>sign_out()}>
-                <Icon icon="solar:exit-linear" width="48" height="48"/>
-            </button>
             {/if}
-        </div>
+            <div class="user-nav-buttons">
+                {#if !loggedIn}
+                <a href="/login">
+                    <Icon icon="carbon:user-avatar-filled" width="48" height="48"/>
+                </a>
+                {:else}
+                <a href="/settings">
+                    <Icon icon="carbon:gears" width="48" height="48"/>
+                </a>
+                <a href="/login">
+                    <Icon icon="carbon:user-avatar-filled" width="48" height="48"/>
+                </a>
+                <button onclick={()=>sign_out()}>
+                    <Icon icon="solar:exit-linear" width="48" height="48"/>
+                </button>
+                {/if}
+            </div>
+        {/if}
     </div>
 </nav>
 <style lang="scss">
@@ -58,7 +59,7 @@
         padding-left: 2rem;
     }
 
-    .page-name h1 {
+    .page-name a {
         font-weight: 400;
         font-size: 40px;
         margin: 0;

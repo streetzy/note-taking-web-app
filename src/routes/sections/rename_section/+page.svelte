@@ -9,19 +9,19 @@
 </script>
 
 {#snippet navbar_button()}
-    <a href="/notebooks">
-        <h2>return to notebook view</h2>
+    <a href="/sections">
+        <h2>return to section view</h2>
     </a>
 {/snippet}
 
 <div class="content">
-    <div class="notebook-container">
-        <div class="header">Notebook name</div>
+    <div class="section-container">
+        <div class="header">Section name</div>
         {#if error}
-            <div class="error">Notebook name can't be empty</div>
+            <div class="error">Section name can't be empty</div>
         {/if}
         <input type="text">
-        <button>Create notebook</button>
+        <button>Rename section</button>
     </div>
 </div>
 
@@ -47,7 +47,7 @@
         font-weight: 400;
     }
 
-    .notebook-container {
+    .section-container {
         gap: 8px;
         display: flex;
         flex-direction: column;
@@ -58,7 +58,7 @@
         padding-bottom: 4rem;
     }
 
-    .notebook-container input {
+    .section-container input {
         width: 100%;
         height: 25%;
         border: 0;
@@ -73,7 +73,7 @@
         padding-inline: 10px;
     }
 
-    .notebook-container button {
+    .section-container button {
         height: 25%;
         width: 100%;
         font-size: 20px;

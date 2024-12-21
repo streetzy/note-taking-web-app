@@ -21,7 +21,7 @@
             <div class="error">Notebook name can't be empty</div>
         {/if}
         <input type="text">
-        <button>Create notebook</button>
+        <button>Rename notebook</button>
     </div>
 </div>
 

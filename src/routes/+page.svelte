@@ -1,8 +1,15 @@
 <script lang="ts">
     import Icon from '@iconify/svelte';
+    import { getContext, type Snippet } from 'svelte';
+    import type { Writable } from 'svelte/store';
+    let nav_content = getContext<Writable<Snippet | null>>("layout")
+
+    $nav_content = navbar_button;
 </script>
 
-
+<!-- svelte-ignore block_empty -->
+{#snippet navbar_button()}
+{/snippet}
 <div class="content-container">
     <div class="content">
         <div class="content-text">

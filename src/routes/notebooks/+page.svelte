@@ -25,7 +25,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <button>Rename</button>
+                <a href="/notebooks/rename_notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -33,7 +33,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <button>Rename</button>
+                <a href="/notebooks/rename_notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -41,7 +41,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <button>Rename</button>
+                <a href="/notebooks/rename_notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -49,7 +49,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <button>Rename</button>
+                <a href="/notebooks/rename_notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -57,7 +57,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <button>Rename</button>
+                <a href="/notebooks/rename_notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -65,7 +65,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <button>Rename</button>
+                <a href="/notebooks/rename_notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -73,7 +73,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <button>Rename</button>
+                <a href="/notebooks/rename_notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -81,7 +81,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <button>Rename</button>
+                <a href="/notebooks/rename_notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -89,7 +89,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <button>Rename</button>
+                <a href="/notebooks/rename_notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -97,7 +97,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <button>Rename</button>
+                <a href="/notebooks/rename_notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -105,7 +105,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <button>Rename</button>
+                <a href="/notebooks/rename_notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -113,7 +113,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <button>Rename</button>
+                <a href="/notebooks/rename_notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -121,7 +121,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <button>Rename</button>
+                <a href="/notebooks/rename_notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -129,7 +129,6 @@
     </div>
     
 </div>
-<!-- <Icon icon="carbon:notebook" width="48" height="48"/> -->
 
 <style lang="scss">
     ::-webkit-scrollbar {
@@ -148,23 +147,43 @@
     }
 
     .notebooks {
-        min-height: 90%;
-        width: 100dvw;
+        min-height: 85%;
+        width: 50dvw;
         display: grid;
         grid-template-columns: 1fr 1fr  1fr;
         grid-template-rows: auto;
         row-gap: 4rem;
         overflow-x: hidden;
+        padding-inline: 25dvw;
+        padding-bottom: 2rem;
     }
 
     .notebook-container {
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .notebook-buttons button {
+        background: none;
+        color: inherit;
+        border: none;
+        padding: 0;
+        font-family: Poppins, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 16px;
+    }
+
+    .notebook-buttons a {
+        font-family: Poppins, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 16px;
     }
 
     .notebook-buttons {
-
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
     }
 
 
@@ -195,7 +214,7 @@
         width: 100dvw;
         justify-content: center;
         gap: 1rem;
-        height: 10%;
+        height: 15%;
         align-items: center;
     }
 
@@ -203,15 +222,18 @@
         font-size: 24px;
         font-weight: 400;
         margin: 0;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        max-width: 90%;
     }
 
     .search-field input {
-        background-color: #28202C;
+        background-color: var(--input-field-color);
         border-radius: 10px;
-        border-style: solid;
-        border-color: #28202C;
+        border-style: none;
         width: 25%;
-        height: 80%;
+        height: 50%;
     }
     
     a {
