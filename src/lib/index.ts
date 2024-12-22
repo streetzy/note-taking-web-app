@@ -1,1 +1,3 @@
-// place files you want to import through the `$lib` alias in this folder.
+import { Chart } from "chart.js/auto";
+import Quill from "quill";
+export { Chart, Quill};
