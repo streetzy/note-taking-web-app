@@ -1,79 +1,72 @@
 <script lang="ts">
     import { Chart } from "$lib/index";
-    import { onMount } from "svelte";
-    import { type Writable } from "svelte/store";
-    import type { ChartBlock } from "$lib/types";
-
+    import type { ChartsData } from "$lib/editorjs-custom-modules/charts";
+    import type { ChartData } from "chart.js";
+    import ChartInputField from "./ChartInputField.svelte";
+    
+    Chart.defaults.color = "#FFFFFF";
+    
     let {
-        chart, charts
-    }: {
-        charts: Writable<ChartBlock[]>,
-        chart: ChartBlock
-    } = $props();
+        type,
+        name,
+        bar_name,
+        labels,
+        values,
+        view_toggled,
+    }: ChartsData = $props();
 
-    let chart_container: HTMLCanvasElement | null = null;
-    let chart_instance: Chart | null = null;
-
-    function focus_element(event: MouseEvent) {
-        event.preventDefault();
-        (event.target as HTMLElement).parentElement?.focus();
-    }
-
-    const render_chart = () => {
-        if (chart_container === null) return;
-
-        if (chart_instance) chart_instance.destroy();
-
-        chart_instance = new Chart(chart_container, {
-            type: chart.type,
-            data: {
-                labels: chart.labels,
-                datasets: chart.datasets,
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-            },
-        });
-    };
-
-    function remove_chart(event: KeyboardEvent) {
-        if (event.code !== "Delete") {
-            return;
+    let canvas: HTMLCanvasElement | undefined = $state();
+    let chart_instance: Chart | undefined = undefined;
+    $effect(() => {
+        if ( view_toggled && canvas !== undefined) {
+            chart_instance = new Chart(canvas, {
+                type: type,
+                data: {
+                    labels: labels.split(",").map((value) => value.trim()),
+                    datasets: [
+                        {
+                            label: bar_name,
+                            data: values.split(",").map((value) => parseFloat(value.trim())),
+                        },
+                    ],
+                }
+            });
         }
-
-        charts.update((current) => {
-            const index = current.findIndex((chart) => chart.id === document.activeElement?.id);
-            if (index === -1) return current;
-
-            current.splice(index, 1);
-            return current;
-        })
-    }
-
-    onMount(() => {
-        render_chart();
     });
+
+    export const toggle_visibility = () => (view_toggled = !view_toggled);
+    export const get_data = (): ChartsData => ({
+        type,
+        name,
+        bar_name,
+        labels,
+        values,
+        view_toggled,
+    })
 </script>
 
-
-<svelte:document onkeydown={remove_chart}></svelte:document>
-<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-<!-- svelte-ignore a11y_click_events_have_key_events -->
-<!-- svelte-ignore a11y_no_static_element_interactions -->
-<!-- blind people aren't real -->
-<div tabindex="0" id={chart.id} onmouseup={focus_element} class="chart-wrapper">
-    <canvas bind:this={chart_container}></canvas>
-</div>
+{#if view_toggled}
+    <div class="chart-wrapper">
+        <h1>{name}</h1>
+        <canvas bind:this={canvas}></canvas>
+    </div>
+{:else}
+    <div class="chart-input-wrapper">
+        <ChartInputField placeholder={"Chart type: (bar OR line OR pie)"} bind:value={type}/>
+        <ChartInputField placeholder={"Chart name"} bind:value={name}/>
+        <ChartInputField placeholder={"Label bar name"} bind:value={bar_name}/>
+        <ChartInputField placeholder={"labels (separated by a comma and a space)"} bind:value={labels}/>
+        <ChartInputField placeholder={"values (separated by a comma and a space)"} bind:value={values}/>
+    </div>
+{/if}
 
 <style lang="scss">
-    .chart-wrapper {
-        outline-offset: -8px;
-        width: 100%;
-        height: 600px;
+    h1 {
+        text-align: center;
     }
-
-    .chart-wrapper:focus {
-        outline: 2px solid white;
+    .chart-input-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
     }
 </style>
