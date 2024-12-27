@@ -30,7 +30,7 @@
     .content {
         display: flex;
         flex-direction: column;
-        width: 100dvw;
+        width: 100%;
         height: 90dvh;
         justify-content: center;
         align-items: center;
@@ -109,5 +109,45 @@
         color: inherit;
         text-decoration: inherit;
         font-size: 14px;
+    }
+    @media only screen and (max-width: 1300px) {
+        .error {
+            font-size: 18px;
+        }
+        a {
+            font-size: 14px;
+        }
+        button {
+            font-size: 16px;
+        }
+        input {
+            font-size: 16px;
+        }
+        form label {
+            font-size: 18px;
+        }
+        h1 {
+            font-size: 24px;
+        }
+    }
+    @media only screen and (max-width: 768px) {
+        .error {
+            font-size: 12px;
+        }
+        a {
+            font-size: 10px;
+        }
+        button {
+            font-size: 12px;
+        }
+        input {
+            font-size: 12px;
+        }
+        form label {
+            font-size: 14px;
+        }
+        h1 {
+            font-size: 20px;
+        }
     }
 </style>

@@ -1,28 +1,45 @@
 <script lang="ts">
-    import Icon from '@iconify/svelte';
-    import { getContext, type Snippet } from 'svelte';
-    import type { Writable } from 'svelte/store';
-    let nav_content = getContext<Writable<Snippet | null>>("layout")
+    import Icon from "@iconify/svelte";
+    import { getContext, type Snippet } from "svelte";
+    import type { Writable } from "svelte/store";
+    let nav_content = getContext<Writable<Snippet | null>>("layout");
 
     $nav_content = navbar_button;
 </script>
 
 <!-- svelte-ignore block_empty -->
-{#snippet navbar_button()}
-{/snippet}
+{#snippet navbar_button()}{/snippet}
 <div class="content-container">
     <div class="content">
         <div class="content-text">
-            <h3>Create notes, graphs, equations without the need of studying how to.</h3>
+            <h3>
+                Create notes, graphs, equations without the need of studying how
+                to.
+            </h3>
             <p>Tired of feeling lost in a complex note-taking environment?</p>
             <p>Want to efficiently write organized notes?</p>
             <p>inscribe offers you the solution to your problems.</p>
         </div>
-        
+
         <div class="content-icons">
-            <Icon icon="carbon:logo-discord" width="64" height="64"/>
-            <Icon icon="carbon:logo-github" width="64" height="64"/>
-            <Icon icon="carbon:logo-mastodon" width="64" height="64"/>
+            <Icon
+                class="icon"
+                icon="carbon:logo-discord"
+                width="64"
+                height="64"
+            />
+            <Icon
+                class="icon"
+                icon="carbon:logo-github"
+                width="64"
+                height="64"
+            />
+            <Icon
+                class="icon"
+                icon="carbon:logo-mastodon"
+                width="64"
+                height="64"
+            />
         </div>
     </div>
     <footer>
@@ -32,27 +49,38 @@
 </div>
 
 <style lang="scss">
-
-    p, h3 {
+    p,
+    h3 {
         margin: 0;
-        font-family: "Exo", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
-    sans-serif;
+        font-family:
+            "Exo",
+            system-ui,
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            Roboto,
+            Oxygen,
+            Ubuntu,
+            Cantarell,
+            "Open Sans",
+            "Helvetica Neue",
+            sans-serif;
         font-weight: 200;
     }
 
     .content-container {
-        display: grid;
-        grid-template-rows: auto 64px;
+        display: flex;
+        flex-direction: column;
         height: 90dvh;
+        width: 100%;
     }
 
-    .content-container > * { 
+    .content-container > * {
         width: 100%;
-        height: 100%;
     }
 
     .content {
+        height: 90%;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -60,14 +88,14 @@
         gap: 4rem;
     }
 
-    .content-text > p { 
+    .content-text > p {
         font-size: 28px;
     }
 
     .content-text > h3 {
         font-size: 36px;
     }
-    
+
     .content-text {
         gap: 4rem;
         display: flex;
@@ -84,9 +112,10 @@
     }
 
     footer {
+        height: 10%;
         display: flex;
         justify-content: space-between;
-        align-items:end;
+        align-items: end;
     }
 
     footer > p {
@@ -95,8 +124,52 @@
     .contact {
         padding-left: 50px;
     }
-    
+
     .copyright {
         padding-right: 50px;
+    }
+
+    @media only screen and (max-width: 1300px) {
+        .content-container {
+            grid-template-rows: auto auto;
+        }
+
+        .content-icons {
+            gap: 3rem;
+        }
+
+        .content-text {
+            p {
+                font-size: 20px;
+            }
+
+            h3 {
+                font-size: 28px;
+            }
+        }
+
+        footer {
+            p {
+                font-size: 18px;
+            }
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        .content-text {
+            p {
+                font-size: 16px;
+            }
+
+            h3 {
+                font-size: 24px;
+            }
+        }
+
+        footer {
+            p {
+                font-size: 14px;
+            }
+        }
     }
 </style>
