@@ -2,8 +2,23 @@
     import { Charts } from '$lib/editorjs-custom-modules/charts'
     import { EditorJS, Header, EditorjsList, Paragraph, CodeTool, ImageTool, Table } from "$lib/index";
     import Icon from '@iconify/svelte';
+    import { getContext, onMount, type Snippet } from 'svelte';
+    import type { Writable } from 'svelte/store';
+
+    function toggle_editor() {
+        in_editor = !in_editor;
+        const editor_window = document.getElementById("printable");
+        const side_bar_window = document.getElementById("side-bar");
+       
+        editor_window!.style.display = in_editor ? "block" : "none";
+        side_bar_window!.style.display = in_editor ? "none" : "block";
+    }
 
     let add_page_empty = false;
+    let in_editor = true;
+    let nav_content = getContext<Writable<Snippet | null>>("layout")
+
+    $nav_content = navbar_button;
 
     const editor = new EditorJS({
         holder: 'content-editor',
@@ -26,8 +41,20 @@
         },
     });
 </script>
+{#snippet navbar_button()}
+    {#if !in_editor}
+    <button class="pages-toggle" onclick={toggle_editor}>
+        pages
+    </button>
+    {:else}
+    <button class="pages-toggle" onclick={toggle_editor}>
+        editor
+    </button>
+    {/if}
+{/snippet}
+
 <div class="container">
-    <div class="side-bar">
+    <div class="side-bar" id="side-bar">
         <div class="section-info">
             <div class="notebook-name">Maths</div>
             <div class="section-name">Functions</div>
@@ -63,6 +90,18 @@
 </div>
 
 <style lang="scss">
+    .pages-toggle {
+        display: none;
+        background-color: transparent;
+        color: white;
+        border: none;
+        font-size: 32px;
+        font-weight: 400;
+        font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+        sans-serif;
+    }
+
     .add-page {
         height: 30%;
         width: 90%;
@@ -209,6 +248,24 @@
         display: flex;
         flex-direction: row;
         height: 90dvh;
-        width: 100dvw;
+        width: 100%;
     }
+
+    @media only screen and (max-width: 1300px) {
+        .pages-toggle {
+            display: block;
+        }
+
+        .side-bar {
+            display: none;
+        }
+    }
+    @media only screen and (max-width: 768px) {
+        .pages-toggle {
+            display: block;
+        }
+        .side-bar {
+            display: none;
+        }
+    }   
 </style>

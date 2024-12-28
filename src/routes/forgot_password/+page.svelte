@@ -3,7 +3,7 @@
         email_sent = true;
     }
 
-    let email_sent = false;
+    let email_sent = true;
 </script>
 
 <div class="content">
@@ -22,7 +22,7 @@
     .content {
         display: flex;
         flex-direction: column;
-        width: 100dvw;
+        width: 100%;
         height: 90dvh;
         justify-content: center;
         align-items: center;
@@ -30,25 +30,23 @@
 
     .container {
         gap: 1rem;
-        width: 30%;
-        height: 30%;
+        width: 40%;
+        height: 40%;
         display: flex;
         flex-direction: column;
+        align-items: center;
         padding-bottom: 8rem;
     }
 
     h1 {
-        height: 20%;
         text-align: center;
         margin: 0;
         font-weight: 400;
         font-size: 28px;
-        justify-content: center;
     }
 
     input {
         width: 100%;
-        height: 25%;
         background-color: var(--input-field-color);
         border: 0;
         border-radius: 10px;
@@ -58,8 +56,8 @@
         padding: 0.5rem;
     }
     button {
-        height: 25%;
-        padding: 0;
+        width: 100%;
+        padding: 0.5rem;
         margin: 0;
         border: 0;
         border-radius: 10px;
@@ -69,12 +67,38 @@
     }
     
     .success {
-        height: 25%;
+        width: 100%;
         background-color: var(--success-field-color);
         display: flex;
         justify-content: center;
         align-items: center;
         font-size: 20px;
         border-radius: 10px;
+    }
+
+    @media only screen and (max-width: 1300px) {
+        .container {
+            width: 60%;
+        }
+        h1 {
+            font-size: 24px;
+        }
+
+        input, button {
+            font-size: 18px;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        .container {
+            width: 80%;
+        }
+        h1 {
+            font-size: 20px;
+        }
+
+        input, button {
+            font-size: 14px;
+        }
     }
 </style>

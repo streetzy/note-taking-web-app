@@ -25,7 +25,7 @@
     .content {
         display: flex;
         flex-direction: column;
-        width: 100dvw;
+        width: 100%;
         height: 90dvh;
         justify-content: center;
         align-items: center;
@@ -96,5 +96,48 @@
         align-items: center;
         font-size: 20px;
         border-radius: 10px;
+    }
+
+    @media only screen and (max-width: 1300px) {
+        form {
+            height: 60%;
+            width: 50%;
+        }
+        .error {
+            font-size: 18px;
+        }
+        button {
+            font-size: 16px;
+        }
+        input {
+            font-size: 16px;
+        }
+        form label {
+            font-size: 18px;
+        }
+        h1 {
+            font-size: 24px;
+        }
+    }
+    @media only screen and (max-width: 768px) {
+        form {
+            height: 50%;
+            width: 60%;
+        }
+        .error {
+            font-size: 14px;
+        }
+        button {
+            font-size: 12px;
+        }
+        form label {
+            font-size: 14px;
+        }
+        input {
+            font-size: 12px;
+        }
+        h1 {
+            font-size: 20px;
+        }
     }
 </style>

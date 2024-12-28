@@ -145,13 +145,13 @@
 
     .sections {
         min-height: 85%;
-        width: 50dvw;
+        width: 50%;
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         grid-template-rows: auto;
         row-gap: 4rem;
         overflow-x: hidden;
-        padding-inline: 25dvw;
+        padding-inline: 2rem;
         padding-bottom: 2rem;
     }
 
@@ -188,13 +188,13 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 100dvw;
-        height: 90dvh;
+        width: 100%;
+        height: auto;
     }
 
     .notebook-name {
         display: flex;
-        width: 100dvw;
+        width: 100%;
         justify-content: center;
         height: 15%;
         align-items: center;
@@ -213,12 +213,58 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-        max-width: 90%;
+        max-width: 60%;
     }
     
     a {
         text-decoration: inherit;
         color: inherit;
         font-size: 32px;
+    }
+
+    @media only screen and (max-width: 1300px) {
+        .sections {
+            width: 70%;
+        }
+
+        .section-buttons {
+            button {
+                font-size: 14px;
+            }
+            a {
+                font-size: 14px;
+            }
+        }
+
+        h3 {
+            font-size: 20px;
+        }
+
+        h1 {
+            font-size: 28px;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        .sections {
+            width: 100%;
+        }
+
+        .section-buttons {
+            button {
+                font-size: 14px;
+            }
+            a {
+                font-size: 14px;
+            }
+        }
+
+        h3 {
+            font-size: 16px;
+        }
+
+        h1 {
+            font-size: 26px;
+        }
     }
 </style>

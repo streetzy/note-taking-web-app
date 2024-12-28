@@ -27,12 +27,12 @@
 
 <style lang="scss">
     .header {
-        font-size: 24px;
+        font-size: 28px;
         width: 100%;
         height: 25%;
         display: flex;
-        justify-content: start;
-        align-items: end;
+        justify-content: center;
+        align-items: center;
     }
 
     .error {
@@ -41,6 +41,7 @@
         font-size: 20px;
         background-color: var(--error-field-color);
         border-radius: 10px;
+        padding: 8px 0;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -59,6 +60,7 @@
     }
 
     .section-container input {
+        padding: 4px 8px;
         width: 100%;
         height: 25%;
         border: 0;
@@ -74,6 +76,7 @@
     }
 
     .section-container button {
+        padding: 4px 0;
         height: 25%;
         width: 100%;
         font-size: 20px;
@@ -87,10 +90,11 @@
     }
 
     .content {
+        padding-top: 10rem;
         display: flex;
         flex-direction: column;
-        width: 100dvw;
-        height: 90dvh;
+        width: 100%;
+        height: auto;
         justify-content: center;
         align-items: center;
     }
@@ -104,5 +108,48 @@
     a {
         text-decoration: inherit;
         color: inherit;
+    }
+
+    @media only screen and (max-width: 1300px) {
+        .section-container {
+            width: 60%;
+
+            input {
+                font-size: 18px;
+            }
+
+            button {
+                font-size: 18px;
+            }
+
+        } 
+        .error {
+            font-size: 18px;
+        }
+        
+        .header {
+            font-size: 24px;
+        }
+    }
+    @media only screen and (max-width: 768px) { 
+        section-container {
+            width: 80%;
+
+            input {
+                font-size: 16px;
+            }
+
+            button {
+                font-size: 16px;
+            }
+
+        } 
+        .error {
+            font-size: 16px;
+        }
+        
+        .header {
+            font-size: 22px;
+        }
     }
 </style>

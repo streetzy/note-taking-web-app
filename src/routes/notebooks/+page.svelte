@@ -148,13 +148,13 @@
 
     .notebooks {
         min-height: 85%;
-        width: 50dvw;
+        width: 50%;
         display: grid;
-        grid-template-columns: 1fr 1fr  1fr;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         grid-template-rows: auto;
         row-gap: 4rem;
         overflow-x: hidden;
-        padding-inline: 25dvw;
+        padding-inline: 0;
         padding-bottom: 2rem;
     }
 
@@ -205,13 +205,13 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 100dvw;
+        width: 100%;
         height: 90dvh;
     }
 
     .search-field {
         display: flex;
-        width: 100dvw;
+        width: 100%;
         justify-content: center;
         gap: 1rem;
         height: 15%;
@@ -240,5 +240,66 @@
         text-decoration: inherit;
         color: inherit;
         font-size: 32px;
+    }
+
+    @media only screen and (max-width: 1300px) {
+        .notebooks {
+            width: 70%;
+        }
+
+        .search-field {
+            input {
+                font-size: 20px;
+
+            }
+
+            ::placeholder {
+                font-size: 20px;
+            }
+        }
+
+        .notebook-buttons {
+            button {
+                font-size: 14px;
+            }
+            a {
+                font-size: 14px;
+            }
+        }
+
+        h3 {
+            font-size: 20px;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        .notebooks {
+            width: 100%;
+        }
+
+        .search-field {
+            input {
+                font-size: 18px;
+                width: 40%;
+
+            }
+
+            ::placeholder {
+                font-size: 18px;
+            }
+        }
+
+        .notebook-buttons {
+            button {
+                font-size: 14px;
+            }
+            a {
+                font-size: 14px;
+            }
+        }
+
+        h3 {
+            font-size: 16px;
+        }
     }
 </style>
