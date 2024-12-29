@@ -1,28 +1,29 @@
 <script lang="ts">
     import { getContext, type Snippet } from "svelte";
     import type { Writable } from "svelte/store";
+    import { type PageData, type ActionData } from "./$types";
 
-    let nav_content = getContext<Writable<Snippet | null>>("layout")
-
+    let nav_content = getContext<Writable<Snippet | null>>("layout");
+    let { data, form }: { data: PageData, form: ActionData } = $props();
     $nav_content = navbar_button;
     let error = true;
 </script>
 
 {#snippet navbar_button()}
-    <a href="/sections">
+    <a href={`/notebooks/${data.notebook_id}/sections`}>
         <h2>return to section view</h2>
     </a>
 {/snippet}
 
 <div class="content">
-    <div class="section-container">
+    <form method="POST" class="section-container">
         <div class="header">Section name</div>
-        {#if error}
-            <div class="error">Section name can't be empty</div>
+        {#if form}
+            <div class="error">{form?.message}</div>
         {/if}
-        <input type="text">
-        <button>Create section</button>
-    </div>
+        <input type="text" name="renamed-section"/>
+        <button>Rename section</button>
+    </form>
 </div>
 
 <style lang="scss">
@@ -66,7 +67,19 @@
         border: 0;
         padding: 0;
         background-color: var(--input-field-color);
-        font-family: Poppins, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-family:
+            Poppins,
+            system-ui,
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            Roboto,
+            Oxygen,
+            Ubuntu,
+            Cantarell,
+            "Open Sans",
+            "Helvetica Neue",
+            sans-serif;
         border-radius: 10px;
         font-weight: 400;
         color: white;
@@ -80,7 +93,19 @@
         height: 25%;
         width: 100%;
         font-size: 20px;
-        font-family: Poppins, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-family:
+            Poppins,
+            system-ui,
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            Roboto,
+            Oxygen,
+            Ubuntu,
+            Cantarell,
+            "Open Sans",
+            "Helvetica Neue",
+            sans-serif;
         background-color: var(--button-color);
         border-style: solid;
         color: white;
@@ -104,7 +129,7 @@
         font-weight: 400;
         font-size: 32px;
     }
-    
+
     a {
         text-decoration: inherit;
         color: inherit;
@@ -121,17 +146,16 @@
             button {
                 font-size: 18px;
             }
-
-        } 
+        }
         .error {
             font-size: 18px;
         }
-        
+
         .header {
             font-size: 24px;
         }
     }
-    @media only screen and (max-width: 768px) { 
+    @media only screen and (max-width: 768px) {
         section-container {
             width: 80%;
 
@@ -142,12 +166,11 @@
             button {
                 font-size: 16px;
             }
-
-        } 
+        }
         .error {
             font-size: 16px;
         }
-        
+
         .header {
             font-size: 22px;
         }

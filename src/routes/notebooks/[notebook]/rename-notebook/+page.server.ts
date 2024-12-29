@@ -2,6 +2,14 @@ import { fail, redirect } from "@sveltejs/kit";
 import type { PageServerLoad, RequestEvent } from "./$types";
 import { update_notebook_name } from "$lib/server/notebooks";
 
+export const load : PageServerLoad = async ({ params, locals }) => {
+    if (locals.user === null) {
+        return redirect(302, "login");
+    }
+
+    return { notebook_id: params.notebook } ;
+}
+
 export const actions = {
     default: action
 };
@@ -18,7 +26,6 @@ async function action(event: RequestEvent) {
         return fail(400, {message: "Invalid input"});
     }
 
-    console.log('hello');
     update_notebook_name(event.locals.user!.id, event.params.notebook, renamed_notebook);
 
     return redirect(302, "/notebooks");

@@ -11,7 +11,7 @@ async function action(event: RequestEvent) {
         return redirect(302, "/login");
     }
 
-    remove_notebook(event.locals.user.id, event.params.notebook);
+    await remove_notebook(event.locals.user.id, event.params.notebook);
 
     return redirect(302, "/notebooks");
 }

@@ -23,15 +23,9 @@ const section_schema = new mongoose.Schema<ISection>({
     pages: [{ type: mongoose.Schema.Types.ObjectId, ref: "page" }],
 });
 
-const editor_content_schema = new mongoose.Schema<IEditor_Content>({
-    time: { type: String, required: true},
-    blocks: { type: [Object], required: true},
-    version: { type: String, required: true}
-})
-
 const page_schema = new mongoose.Schema<IPage>({
     name: { type: String, required: true },
-    editorjs_content: { type: editor_content_schema, required: true },
+    editorjs_content: { type: Object },
     parent_section: { type: mongoose.Schema.Types.ObjectId, ref: "section", required: true }
 });
 
@@ -107,7 +101,7 @@ export interface ISection {
 
 export interface IPage {
     name: String,
-    editorjs_content: {
+    editorjs_content?: {
         time: number,
         blocks: { type: String, data: Object }[],
         version: String,

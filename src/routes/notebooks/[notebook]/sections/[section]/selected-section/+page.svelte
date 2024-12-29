@@ -1,15 +1,29 @@
 <script lang="ts">
-    import { Charts } from '$lib/editorjs-custom-modules/charts'
-    import { EditorJS, Header, EditorjsList, Paragraph, CodeTool, Table, MathTex, SimpleImage } from "$lib/index";
-    import Icon from '@iconify/svelte';
-    import { getContext, onMount, type Snippet } from 'svelte';
-    import type { Writable } from 'svelte/store';
+    import { Charts } from "$lib/editorjs-custom-modules/charts";
+    import {
+        EditorJS,
+        Header,
+        EditorjsList,
+        Paragraph,
+        CodeTool,
+        Table,
+        MathTex,
+        SimpleImage,
+    } from "$lib/index";
+    import Icon from "@iconify/svelte";
+    import { getContext, onMount, type Snippet } from "svelte";
+    import type { Writable } from "svelte/store";
+    import type { PageData, ActionData } from "./$types";
+    import { enhance } from "$app/forms";
+    import type { OutputData } from "@editorjs/editorjs";
+
+    let { data, form }: { data: PageData; form: ActionData } = $props();
 
     function toggle_editor() {
         in_editor = !in_editor;
         const editor_window = document.getElementById("printable");
         const side_bar_window = document.getElementById("side-bar");
-       
+
         editor_window!.style.display = in_editor ? "block" : "none";
         side_bar_window!.style.display = in_editor ? "none" : "block";
     }
@@ -25,15 +39,57 @@
             editor_window!.style.display = "block";
             side_bar_window!.style.display = "flex";
         }
-    })
+    });
 
     let add_page_empty = false;
-    let in_editor = true;
-    let nav_content = getContext<Writable<Snippet | null>>("layout")
-
+    let in_editor = $state(true);
+    let nav_content = getContext<Writable<Snippet | null>>("layout");
+    let pages : typeof data.pages = $state([]);
+    if (!data.pages) {
+        pages = [];
+    } else {
+        pages = data.pages;
+    }
+    let wanted_page_index: number | null = $state(null);
+    let wanted_page = $derived(
+        wanted_page_index !== null ? pages[wanted_page_index] : null,
+    );
     $nav_content = navbar_button;
+
+    $effect(() => {
+        if (wanted_page === null) return;
+        if (wanted_page.editorjs_content === undefined) return;
+        editor.render(wanted_page.editorjs_content as OutputData);
+    })
+
+    let timeout: NodeJS.Timeout | null = null;
+
     const editor = new EditorJS({
-        holder: 'content-editor',
+        autofocus: true,
+        onChange(api, event) {
+            console.log("onChange running");
+            if (timeout !== null) clearTimeout(timeout);
+            timeout = setTimeout(async () => {
+                const _data = await api.saver.save();
+                
+                if (wanted_page_index === null) return;
+                if (wanted_page === null) return;
+
+                await fetch(`${window.origin}/api/v1/editor`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        page_id: wanted_page.page_id,
+                        saved_data: _data
+                    }),
+                });
+
+                pages[wanted_page_index].editorjs_content = _data as any;
+            }, 5000);
+        },
+        holder: "content-editor",
         tools: {
             header: Header,
             list: EditorjsList,
@@ -48,55 +104,70 @@
         },
     });
 </script>
+
 {#snippet navbar_button()}
     {#if !in_editor}
-    <button class="pages-toggle" onclick={toggle_editor}>
-        pages
-    </button>
+        <button class="pages-toggle" onclick={toggle_editor}> pages </button>
     {:else}
-    <button class="pages-toggle" onclick={toggle_editor}>
-        editor
-    </button>
+        <button class="pages-toggle" onclick={toggle_editor}> editor </button>
     {/if}
 {/snippet}
 
 <div class="container">
     <div class="side-bar" id="side-bar">
         <div class="section-info">
-            <div class="notebook-name">Maths</div>
-            <div class="section-name">Functions</div>
+            <a href={`/notebooks/${data.notebook_id}`} class="notebook-name"
+                >{data.notebook_name}</a
+            >
+            <div class="section-name">{data.section_name}</div>
             <div class="page-list">
-                <p>Page 1</p>
-                <p>Page 2</p>
-                <p>Page 3</p>
-                <p>Page 4</p>
-                <p>Page 5</p>
-                <p>Page 6</p>
-                <p>Page 7</p>
-                <p>Page 8</p>
-                <p>Page 9</p>
-                <p>Page 10</p>
+                {#each pages as page, i}
+                    <button
+                        onclick={() =>
+                            (wanted_page_index =
+                                wanted_page_index === i ? null : i)}
+                        class="page">{page.page_name}</button
+                    >
+                {/each}
             </div>
-            <div class="add-page">
-                {#if add_page_empty}
-                <div class="error">Page name cannot be empty!</div>
+            <form method="POST" class="add-page">
+                {#if form}
+                    <div class="error">{form?.message}</div>
                 {/if}
                 <div class="input-container">
-                    <input type="text" name="page-name" placeholder="My page">
+                    <input type="text" name="page-name" placeholder="My page" />
                     <button>
-                        <Icon icon="carbon:add" width="32" height="32"  style="color: #fff" />
+                        <Icon
+                            icon="carbon:add"
+                            width="32"
+                            height="32"
+                            style="color: #fff"
+                        />
                     </button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
     <div id="printable" class="user-content">
-        <div id="content-editor">
-        </div>
+        <div id="content-editor"></div>
     </div>
 </div>
 
 <style lang="scss">
+    .page {
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-size: 14px;
+        height: 100%;
+        padding: 8px;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
     .pages-toggle {
         display: none;
         background-color: transparent;
@@ -104,9 +175,19 @@
         border: none;
         font-size: 32px;
         font-weight: 400;
-        font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
-        sans-serif;
+        font-family:
+            "Poppins",
+            system-ui,
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            Roboto,
+            Oxygen,
+            Ubuntu,
+            Cantarell,
+            "Open Sans",
+            "Helvetica Neue",
+            sans-serif;
     }
 
     .add-page {
@@ -149,7 +230,7 @@
         justify-content: center;
         align-items: center;
     }
-    
+
     @media print {
         @page {
             size: auto;
@@ -187,12 +268,6 @@
     }
 
     #content-editor {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    #content-editor {
         width: 100%;
         height: 100%;
     }
@@ -206,7 +281,7 @@
     }
 
     ::-webkit-scrollbar {
-      width: 12px;
+        width: 12px;
     }
 
     ::-webkit-scrollbar-thumb {
@@ -268,6 +343,11 @@
     }
 
     @media only screen and (max-width: 1300px) {
+        #content-editor {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
         .pages-toggle {
             display: block;
         }
@@ -277,11 +357,16 @@
             width: 100%;
         }
 
-        .input-container { 
+        .input-container {
             width: 40%;
         }
     }
     @media only screen and (max-width: 768px) {
+        #content-editor {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
         .pages-toggle {
             display: block;
         }
@@ -290,7 +375,7 @@
             width: 100%;
         }
 
-        .input-container { 
+        .input-container {
             width: 60%;
         }
     }

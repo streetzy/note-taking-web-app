@@ -1,28 +1,24 @@
 <script lang="ts">
     import { getContext, type Snippet } from "svelte";
     import type { Writable } from "svelte/store";
+    import type { ActionData, PageData } from "./$types";
 
     let nav_content = getContext<Writable<Snippet | null>>("layout")
-
+    let { form, data } : { form: ActionData, data: PageData} = $props(); 
     $nav_content = navbar_button;
-    let error = true;
 </script>
 
 {#snippet navbar_button()}
-    <a href="/sections">
+    <a href={`/notebooks/${data.notebook_id}/sections`}>
         <h2>return to section view</h2>
     </a>
 {/snippet}
 
 <div class="content">
-    <div class="section-container">
-        <div class="header">Section name</div>
-        {#if error}
-            <div class="error">Section name can't be empty</div>
-        {/if}
-        <input type="text">
-        <button>Rename section</button>
-    </div>
+    <form method="POST" class="notebook-container">
+        <div class="header">Are you sure?</div>
+        <button>Delete</button>
+    </form>
 </div>
 
 <style lang="scss">
@@ -48,7 +44,7 @@
         font-weight: 400;
     }
 
-    .section-container {
+    .notebook-container {
         gap: 8px;
         display: flex;
         flex-direction: column;
@@ -59,7 +55,7 @@
         padding-bottom: 4rem;
     }
 
-    .section-container input {
+    .notebook-container input {
         padding: 4px 8px;
         width: 100%;
         height: 25%;
@@ -75,7 +71,7 @@
         padding-inline: 10px;
     }
 
-    .section-container button {
+    .notebook-container button {
         padding: 4px 0;
         height: 25%;
         width: 100%;
@@ -111,7 +107,7 @@
     }
 
     @media only screen and (max-width: 1300px) {
-        .section-container {
+        .notebook-container {
             width: 60%;
 
             input {
@@ -132,7 +128,7 @@
         }
     }
     @media only screen and (max-width: 768px) { 
-        section-container {
+        notebook-container {
             width: 80%;
 
             input {

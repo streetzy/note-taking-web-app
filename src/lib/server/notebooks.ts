@@ -11,13 +11,23 @@ export async function update_notebook_name(user_id: string, notebook_id: string,
 }
 
 export async function remove_notebook(user_id: string, notebook_id: string) {
-    const notebook = await Notebook.findById(notebook_id).exec()
+    const notebook = await Notebook.findById(notebook_id).exec();
 
     if (notebook.author.toString() !== user_id) {
         return null
     }
 
     await Notebook.findByIdAndDelete(notebook_id).exec();
+}
+
+export async function get_notebook_name(user_id: string, notebook_id: string) {
+    const notebook = await Notebook.findById(notebook_id).exec();
+
+    if (notebook.author.toString() !== user_id) {
+        return null
+    }
+
+    return notebook.name;
 }
 
 export async function get_user_notebooks(user_id: string) {

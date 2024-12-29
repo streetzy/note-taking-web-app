@@ -43,7 +43,9 @@
     <div class="notebooks">
         {#each filtered_notebooks as notebook }
         <div class="notebook-container">
-            <Icon icon="carbon:notebook" width="80" height="80"/>
+            <a href={`/notebooks/${notebook.notebook_id}/sections`}>
+                <Icon icon="carbon:notebook" width="80" height="80"/>
+            </a>
             <h3>{notebook.notebook_name}</h3>
             <div class="notebook-buttons">
                 <a href={`/notebooks/${notebook.notebook_id}/rename-notebook`}>Rename</a>
