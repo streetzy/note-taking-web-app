@@ -1,4 +1,4 @@
-import { Password_reset_session, User } from "$lib/models/models";
+import { Password_reset_session, Session, User } from "$lib/models/models";
 import { generateRandomOTP } from "$lib/utils/utils";
 import { sha256 } from "@oslojs/crypto/sha2";
 import { encodeHexLowerCase } from "@oslojs/encoding";
@@ -7,10 +7,10 @@ import nodemailer from "nodemailer";
 import { EMAIL, PASSWORD } from "$env/static/private";
 
 export async function create_password_reset_session(token: string, user_id: string, email: string) {
-    const session_id = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
+    const wanted_session = await Session.findOne({ token })
 
     const session = new Password_reset_session({
-        id: session_id,
+        id: wanted_session._id,
         user_id,
         email,
         expires_at: new Date(Date.now() + 1000 * 60 * 10),
@@ -21,8 +21,8 @@ export async function create_password_reset_session(token: string, user_id: stri
 }
 
 export async function validate_password_reset_session_token(token: string) {
-    const session_id = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
-    const session = await Password_reset_session.findById(session_id).exec();
+    const wanted_session = await Session.findOne({ token });
+    const session = await Password_reset_session.findById(wanted_session._id).exec();
     if (!session) {
         return { session: null, user: null};
     }
@@ -33,7 +33,7 @@ export async function validate_password_reset_session_token(token: string) {
     }
 
     if (Date.now() >= session.expires_at * 1000) {
-        await Password_reset_session.findByIdAndDelete(session_id).exec();
+        await Password_reset_session.findByIdAndDelete(wanted_session._id).exec();
         return { session: null, user: null };
     }
 

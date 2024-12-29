@@ -1,4 +1,4 @@
-import mongoose, { Mongoose, type Date } from "mongoose";
+import mongoose, { type Date } from "mongoose";
 
 const user_schema = new mongoose.Schema<IUser>({
     username: { type: String, required: true },
@@ -37,6 +37,7 @@ const page_schema = new mongoose.Schema<IPage>({
 
 const session_schema = new mongoose.Schema<ISession>({
     user: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true },
+    token: { type: String, required: true, unique: true},
     expires_at: { type: Number, required: true }
 });
 
@@ -76,6 +77,7 @@ export interface IPasswordReset {
 
 export interface ISession {
     user: mongoose.Types.ObjectId,
+    token: string,
     expires_at: number
 };
 
@@ -112,10 +114,10 @@ export interface IPage {
     parent_section: mongoose.Types.ObjectId,
 };
 
-export const Password_reset_session = mongoose.models["Password Reset Session"] || mongoose.model("Password Reset Session", password_reset_session_schema);
-export const Email_verification_request = mongoose.models["Email Verification Request"] || mongoose.model("Email Verification Request", email_verification_request_schema);
-export const Session = mongoose.models["Session"] || mongoose.model("Session", session_schema);
-export const User = mongoose.models["User"] || mongoose.model("User", user_schema);
-export const Notebook = mongoose.models["Notebook"] || mongoose.model("Notebook", notebook_schema);
-export const Section = mongoose.models["Section"] || mongoose.model("Section", section_schema);
-export const Page = mongoose.models["Page"] || mongoose.model("Page", page_schema);
+export const Password_reset_session = mongoose.models["password reset session"] || mongoose.model("password reset session", password_reset_session_schema);
+export const Email_verification_request = mongoose.models["email verification request"] || mongoose.model("email verification request", email_verification_request_schema);
+export const Session = mongoose.models["session"] || mongoose.model("session", session_schema);
+export const User = mongoose.models["user"] || mongoose.model("user", user_schema);
+export const Notebook = mongoose.models["notebook"] || mongoose.model("notebook", notebook_schema);
+export const Section = mongoose.models["section"] || mongoose.model("section", section_schema);
+export const Page = mongoose.models["page"] || mongoose.model("page", page_schema);

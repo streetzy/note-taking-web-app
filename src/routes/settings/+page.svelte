@@ -5,23 +5,27 @@
 
     export let data: PageData;
     export let form: ActionData
+
+    console.log(data.user.username);
 </script>
 
 <div class="content">
     <form method="POST">
         <h1>Edit account details</h1>
+        {#if form}
         <div class="error">{form?.message ?? ""}</div>
+        {/if}
         <label>
             Username
-            <input name="username" type="text" placeholder="{data.user.username}" required />
+            <input name="username" type="text" placeholder="{data.user.username}" />
         </label>
         <label>
             Password
-            <input name="password" type="password" required placeholder="New password"/>
+            <input name="password" type="password" placeholder="New password"/>
         </label>
         <label>
             Confirm password
-            <input name="confirm-password" type="password" required placeholder="Confirm new password"/>
+            <input name="confirm-password" type="password" placeholder="Confirm new password"/>
         </label>
         <label>
             Profile picture

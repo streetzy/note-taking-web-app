@@ -20,7 +20,7 @@
         writable(null),
     );
 
-    console.log(data.user);
+    console.log(data);
 
     if ( !data.user ) {
         loggedIn = false;
@@ -38,6 +38,7 @@
         <div class="page-name">
             <a href="/">inscribe</a>
         </div>
+        {#if !UNWANTED_URLS.includes(page.url.pathname)}
         <div class="user-nav-buttons">
             {#if !loggedIn}
                 <a href="/login">
@@ -57,14 +58,6 @@
                         height="64"
                     />
                 </a>
-                <a href="/account">
-                    <Icon
-                        class="icon"
-                        icon="carbon:user-avatar-filled"
-                        width="64"
-                        height="64"
-                    />
-                </a>
                 <a href="/sign-out">
                     <Icon
                         class="icon"
@@ -76,6 +69,7 @@
                 </a>
             {/if}
         </div>
+        {/if}
     </div>
     {#if !UNWANTED_URLS.includes(page.url.pathname)}
         <div class="nav-forum-links">

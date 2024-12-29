@@ -9,7 +9,9 @@
 <div class="content">
     <form method="POST">
         <h1>Sign into your account</h1>
+        {#if form}
         <div class="error">{form?.message ?? ""}</div>
+        {/if}
         <label>
             Email
             <input name="email" type="email">

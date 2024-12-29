@@ -41,9 +41,9 @@ async function action(event: RequestEvent) {
         })
     }
 
-    const session_token = generate_session_token();
-    const _session = await create_session(session_token, user.id.toHexString());
-    set_session_token_cookie(event, session_token, new Date( _session.expires_at ))
-
+    const _session = await create_session(user.id.toHexString());
+    console.log("Session created:", _session);
+    set_session_token_cookie(event, _session.token, new Date( _session.expires_at * 1000 ))
+    console.log("Cookie set with token:", _session.token);
     return redirect(302, "/");
 }

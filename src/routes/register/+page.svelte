@@ -8,7 +8,9 @@
 <div class="content">
     <form method="POST">
         <h1>Register</h1>
+        {#if form}
         <div class="error">{form?.message ?? ""}</div>
+        {/if}
         <label>
             Username
             <input name="username" type="text" minlength="4" maxlength="31" required>

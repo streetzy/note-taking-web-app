@@ -1,6 +1,6 @@
-import type { PageServerLoadEvent } from "./$types";
+import type { LayoutServerLoadEvent } from "./$types";
 
-export function load(event: PageServerLoadEvent) {
+export function load(event: LayoutServerLoadEvent) {
     if (event.locals.session !== null || event.locals.user !== null) {
         return {
             user: event.locals.user

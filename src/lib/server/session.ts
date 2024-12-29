@@ -7,7 +7,7 @@ import type { _IUser } from "./user";
 
 export async function validate_session_token(token: string) {
 
-    const session_data = await Session.findById(token).populate({
+    const session_data = await Session.findOne({token}).populate({
         path: "user",
         select: "email username",
     }).exec();
@@ -60,9 +60,8 @@ export function set_session_token_cookie(event: RequestEvent, token: string, exp
     event.cookies.set("session", token, {
         httpOnly: true,
         path: "/",
-        secure: import.meta.env.PROD,
+        secure: import.meta.env.PROD || false,
         sameSite: "lax",
-        maxAge: 0,
         expires: expires_at
     });
 }
@@ -71,15 +70,23 @@ export function delete_session_token_cookie(event: RequestEvent) {
     event.cookies.set("session", "", {
         httpOnly: true,
         path: "/",
-        secure: import.meta.env.PROD,
+        secure: import.meta.env.PROD || false,
         sameSite: "lax",
         maxAge: 0
     });
 }
 
+export function generate_session_token() {
+    const token_bytes = new Uint8Array(20);
+    crypto.getRandomValues(token_bytes);
+    const token = encodeBase32LowerCaseNoPadding(token_bytes).toLowerCase();
+    return token;
+}
 export async function create_session(user_id: string ) {
+    const token = generate_session_token();
     const session = new Session({
         user: user_id,
+        token,
         expires_at: Math.floor((new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)).getTime() / 1000)
     });
 

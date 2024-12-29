@@ -16,7 +16,9 @@
         {#if email_sent}
         <div class="success">Email sent to address.</div>
         {/if}
+        {#if form}
         <p>{form?.message ?? ""}</p>
+        {/if}
         <input type="email" id="form-forgot-email" name="email" required>
         <button onclick={email_sent_toggle}>Send email</button>
     </form>

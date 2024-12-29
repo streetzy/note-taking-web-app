@@ -1,4 +1,4 @@
-import { fail, type RequestEvent } from '@sveltejs/kit';
+import { fail, redirect, type RequestEvent } from '@sveltejs/kit';
 import { check_email_availability, verify_email_input } from '$lib/server/email';
 import { create_user, verify_username_input } from '$lib/server/user';
 import { create_session, set_session_token_cookie } from '$lib/server/session';
@@ -47,6 +47,6 @@ async function action(event: RequestEvent) {
 
     const user = await create_user(email, username, password);
     const _session = await create_session(user.id.toHexString());
-    // const session_token = await Session.findById()
-    // set_session_token_cookie(event, session_token, new Date(_session.expires_at));
+    set_session_token_cookie(event, _session.token, new Date(_session.expires_at * 1000));
+    return redirect(302, "/");
 }
