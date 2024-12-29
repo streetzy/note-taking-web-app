@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Charts } from '$lib/editorjs-custom-modules/charts'
-    import { EditorJS, Header, EditorjsList, Paragraph, CodeTool, ImageTool, Table } from "$lib/index";
+    import { EditorJS, Header, EditorjsList, Paragraph, CodeTool, ImageTool, Table, MathTex } from "$lib/index";
     import Icon from '@iconify/svelte';
     import { getContext, onMount, type Snippet } from 'svelte';
     import type { Writable } from 'svelte/store';
@@ -14,12 +14,24 @@
         side_bar_window!.style.display = in_editor ? "none" : "block";
     }
 
+    window.addEventListener("resize", () => {
+        const editor_window = document.getElementById("printable");
+        const side_bar_window = document.getElementById("side-bar");
+
+        if (window.matchMedia("(max-width: 1300px)").matches) {
+            editor_window!.style.display = in_editor ? "block" : "none";
+            side_bar_window!.style.display = in_editor ? "none" : "block";
+        } else {
+            editor_window!.style.display = "block";
+            side_bar_window!.style.display = "flex";
+        }
+    })
+
     let add_page_empty = false;
     let in_editor = true;
     let nav_content = getContext<Writable<Snippet | null>>("layout")
 
     $nav_content = navbar_button;
-
     const editor = new EditorJS({
         holder: 'content-editor',
         tools: {
@@ -35,6 +47,9 @@
                         byFile: '',
                     }
                 }
+            },
+            math: {
+                class: MathTex,
             },
             table: Table,
             chart: Charts,
@@ -126,11 +141,10 @@
             color: white;
         }
         button {
-            background-color: var(--button-color);
+            background-color: transparent;
             border: none;
             height: 80%;
-            width: 15%;
-            border-radius: 100%; 
+            width: 10%;
         }
     }
     .error {
@@ -174,6 +188,16 @@
 
     :global(.cdx-notifies) {
         color: black;
+    }
+
+    :global(.katex-html) {
+        color: white;
+    }
+
+    #content-editor {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     #content-editor {
@@ -247,7 +271,7 @@
     .container {
         display: flex;
         flex-direction: row;
-        height: 90dvh;
+        height: 90%;
         width: 100%;
     }
 
@@ -258,6 +282,11 @@
 
         .side-bar {
             display: none;
+            width: 100%;
+        }
+
+        .input-container { 
+            width: 40%;
         }
     }
     @media only screen and (max-width: 768px) {
@@ -266,6 +295,11 @@
         }
         .side-bar {
             display: none;
+            width: 100%;
         }
-    }   
+
+        .input-container { 
+            width: 60%;
+        }
+    }
 </style>

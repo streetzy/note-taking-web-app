@@ -1,18 +1,24 @@
 <script lang="ts">
 
+    import type { ActionData } from  "./$types";
+    export let form: ActionData;
 </script>
 
 <div class="content">
     <form>
         <h1>Change password</h1>
-        <div class="error">Invalid password</div>
+        <p>{form?.message ?? ""}</p>
+        <label>
+            Verification Code
+            <input type="text" name="code" required>
+        </label>
         <label>
             Password
-            <input name="password" type="password">
+            <input name="password" type="password" required>
         </label>
         <label>
             Confirm password
-            <input name="password" type="password">
+            <input name="confirm-password" type="password" required>
         </label>
         <div class="buttons">
             <button>Change password</button>

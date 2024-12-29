@@ -1,11 +1,15 @@
 <script lang="ts">
 
+    import type {ActionData} from "./$types"
+
+    export let form: ActionData;
+    
 </script>
 
 <div class="content">
     <form method="POST">
         <h1>Sign into your account</h1>
-        <div class="error">Incorrect credentials</div>
+        <div class="error">{form?.message ?? ""}</div>
         <label>
             Email
             <input name="email" type="email">
@@ -30,7 +34,7 @@
     .content {
         display: flex;
         flex-direction: column;
-        width: 100dvw;
+        width: 100%;
         height: 90dvh;
         justify-content: center;
         align-items: center;

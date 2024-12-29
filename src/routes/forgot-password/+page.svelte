@@ -1,20 +1,25 @@
 <script lang="ts">
-    function send_password_renewal() {
+    import type { ActionData } from "./$types";
+
+    function email_sent_toggle() {
         email_sent = true;
     }
 
-    let email_sent = true;
+    let email_sent = false;
+
+    export let form: ActionData;
 </script>
 
 <div class="content">
-    <div class="container">
+    <form method="POST" class="container">
         <h1>Enter account's email address</h1>
         {#if email_sent}
-        <div class="success">Email sent!</div>
+        <div class="success">Email sent to address.</div>
         {/if}
-        <input type="text">
-        <button>Send email</button>
-    </div>
+        <p>{form?.message ?? ""}</p>
+        <input type="email" id="form-forgot-email" name="email" required>
+        <button onclick={email_sent_toggle}>Send email</button>
+    </form>
 </div>
 
 

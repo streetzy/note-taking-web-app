@@ -1,21 +1,27 @@
 <script lang="ts">
+    import type { ActionData } from "./$types";
+    import type { PageData } from "./$types";
+
+
+    export let data: PageData;
+    export let form: ActionData
 </script>
 
 <div class="content">
-    <form>
+    <form method="POST">
         <h1>Edit account details</h1>
-        <div class="error">Invalid password</div>
+        <div class="error">{form?.message ?? ""}</div>
         <label>
             Username
-            <input name="username" type="text" />
+            <input name="username" type="text" placeholder="{data.user.username}" required />
         </label>
         <label>
             Password
-            <input name="password" type="password" />
+            <input name="password" type="password" required placeholder="New password"/>
         </label>
         <label>
             Confirm password
-            <input name="password" type="password" />
+            <input name="confirm-password" type="password" required placeholder="Confirm new password"/>
         </label>
         <label>
             Profile picture

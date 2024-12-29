@@ -4,21 +4,34 @@
     import { setContext, type Snippet } from "svelte";
     import { writable, type Writable } from "svelte/store";
     import { page } from "$app/state";
+    import type { PageData } from "./$types";
 
     const UNWANTED_URLS = [
         "/register",
         "/login",
-        "/forgot_password",
-        "/forgot_password_success",
+        "/forgot-password",
+        "/forgot-password-success",
+        "/sign-out"
     ];
-    let loggedIn = $state(true);
-    let { children } = $props();
+    let loggedIn = $state(false);
+    let { children, data } : { children: Snippet, data: PageData} = $props();
     let nav_content = setContext<Writable<Snippet | null>>(
         "layout",
         writable(null),
     );
-    function sign_out() {}
+
+    console.log(data.user);
+
+    if ( !data.user ) {
+        loggedIn = false;
+    } else {
+        loggedIn = true;
+    }
 </script>
+
+<svelte:head>
+    <title>Inscribe</title>
+</svelte:head>
 
 <nav class="top-nav">
     <div class="user-nav-menu">
@@ -44,7 +57,7 @@
                         height="64"
                     />
                 </a>
-                <a href="/login">
+                <a href="/account">
                     <Icon
                         class="icon"
                         icon="carbon:user-avatar-filled"
@@ -52,7 +65,7 @@
                         height="64"
                     />
                 </a>
-                <button onclick={() => sign_out()}>
+                <a href="/sign-out">
                     <Icon
                         class="icon"
                         icon="solar:exit-linear"
@@ -60,7 +73,7 @@
                         height="64"
                         style="color: #fff"
                     />
-                </button>
+                </a>
             {/if}
         </div>
     </div>

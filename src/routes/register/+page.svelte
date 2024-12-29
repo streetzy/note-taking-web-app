@@ -1,22 +1,25 @@
 <script lang="ts">
+    import type { ActionData } from "./$types";
 
+
+    export let form: ActionData;
 </script>
 
 <div class="content">
     <form method="POST">
         <h1>Register</h1>
-        <div class="error">Invalid email address</div>
+        <div class="error">{form?.message ?? ""}</div>
         <label>
             Username
-            <input name="username" type="text">
+            <input name="username" type="text" minlength="4" maxlength="31" required>
         </label>
         <label>
             Email
-            <input name="email" type="email">
+            <input name="email" type="email" required id="form-signup-email">
         </label>
         <label>
             Password
-            <input name="password" type="password">
+            <input name="password" type="password" required id="form-signup-password">
         </label>
         <div class="buttons">
             <button>Register account</button>

@@ -9,7 +9,7 @@
 </script>
 
 {#snippet navbar_button()}
-    <a href="/sections/create_section">
+    <a href="/sections/create-section">
         create section
     </a>
 {/snippet}
@@ -24,7 +24,7 @@
             <Icon icon="carbon:folder" width="80" height="80"/>
             <h3>Functions</h3>
             <div class="section-buttons">
-                <a href="/sections/rename_section">Rename</a>
+                <a href="/sections/rename-section">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -32,7 +32,7 @@
             <Icon icon="carbon:folder" width="80" height="80"/>
             <h3>Linear Equations</h3>
             <div class="section-buttons">
-                <a href="/sections/rename_section">Rename</a>
+                <a href="/sections/rename-section">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -40,7 +40,7 @@
             <Icon icon="carbon:folder" width="80" height="80"/>
             <h3>Quadratic Equations</h3>
             <div class="section-buttons">
-                <a href="/sections/rename_section">Rename</a>
+                <a href="/sections/rename-section">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -48,7 +48,7 @@
             <Icon icon="carbon:folder" width="80" height="80"/>
             <h3>Exponential and Logarithmic Equations</h3>
             <div class="section-buttons">
-                <a href="/sections/rename_section">Rename</a>
+                <a href="/sections/rename-section">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -56,7 +56,7 @@
             <Icon icon="carbon:folder" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="section-buttons">
-                <a href="/sections/rename_section">Rename</a>
+                <a href="/sections/rename-section">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -64,7 +64,7 @@
             <Icon icon="carbon:folder" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="section-buttons">
-                <a href="/sections/rename_section">Rename</a>
+                <a href="/sections/rename-section">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -72,7 +72,7 @@
             <Icon icon="carbon:folder" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="section-buttons">
-                <a href="/sections/rename_section">Rename</a>
+                <a href="/sections/rename-section">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -80,7 +80,7 @@
             <Icon icon="carbon:folder" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="section-buttons">
-                <a href="/sections/rename_section">Rename</a>
+                <a href="/sections/rename-section">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -88,7 +88,7 @@
             <Icon icon="carbon:folder" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="section-buttons">
-                <a href="/sections/rename_section">Rename</a>
+                <a href="/sections/rename-section">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -96,7 +96,7 @@
             <Icon icon="carbon:folder" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="section-buttons">
-                <a href="/sections/rename_section">Rename</a>
+                <a href="/sections/rename-section">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -104,7 +104,7 @@
             <Icon icon="carbon:folder" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="section-buttons">
-                <a href="/sections/rename_section">Rename</a>
+                <a href="/sections/rename-section">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -112,7 +112,7 @@
             <Icon icon="carbon:folder" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="section-buttons">
-                <a href="/sections/rename_section">Rename</a>
+                <a href="/sections/rename-section">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -120,7 +120,7 @@
             <Icon icon="carbon:folder" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="section-buttons">
-                <a href="/sections/rename_section">Rename</a>
+                <a href="/sections/rename-section">Rename</a>
                 <button>Delete</button>
             </div>
         </div>

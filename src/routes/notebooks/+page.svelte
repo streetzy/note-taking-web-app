@@ -9,7 +9,7 @@
 </script>
 
 {#snippet navbar_button()}
-    <a href="/notebooks/create_notebook">
+    <a href="/notebooks/create-notebook">
         create notebook
     </a>
 {/snippet}
@@ -25,7 +25,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <a href="/notebooks/rename_notebook">Rename</a>
+                <a href="/notebooks/rename-notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -33,7 +33,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <a href="/notebooks/rename_notebook">Rename</a>
+                <a href="/notebooks/rename-notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -41,7 +41,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <a href="/notebooks/rename_notebook">Rename</a>
+                <a href="/notebooks/rename-notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -49,7 +49,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <a href="/notebooks/rename_notebook">Rename</a>
+                <a href="/notebooks/rename-notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -57,7 +57,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <a href="/notebooks/rename_notebook">Rename</a>
+                <a href="/notebooks/rename-notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -65,7 +65,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <a href="/notebooks/rename_notebook">Rename</a>
+                <a href="/notebooks/rename-notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -73,7 +73,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <a href="/notebooks/rename_notebook">Rename</a>
+                <a href="/notebooks/rename-notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -81,7 +81,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <a href="/notebooks/rename_notebook">Rename</a>
+                <a href="/notebooks/rename-notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -89,7 +89,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <a href="/notebooks/rename_notebook">Rename</a>
+                <a href="/notebooks/rename-notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -97,7 +97,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <a href="/notebooks/rename_notebook">Rename</a>
+                <a href="/notebooks/rename-notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -105,7 +105,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <a href="/notebooks/rename_notebook">Rename</a>
+                <a href="/notebooks/rename-notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -113,7 +113,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <a href="/notebooks/rename_notebook">Rename</a>
+                <a href="/notebooks/rename-notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>
@@ -121,7 +121,7 @@
             <Icon icon="carbon:notebook" width="80" height="80"/>
             <h3>Maths</h3>
             <div class="notebook-buttons">
-                <a href="/notebooks/rename_notebook">Rename</a>
+                <a href="/notebooks/rename-notebook">Rename</a>
                 <button>Delete</button>
             </div>
         </div>

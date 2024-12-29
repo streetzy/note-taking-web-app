@@ -17,13 +17,21 @@
     "@editorjs/list": "^2.0.2",
     "@editorjs/paragraph": "^2.11.7",
     "@editorjs/table": "^2.4.3",
-    "chart.js": "^4.4.7"
+    "@node-rs/argon2": "^2.0.2",
+    "@oslojs/crypto": "^1.0.1",
+    "@oslojs/encoding": "^1.1.0",
+    "chart.js": "^4.4.7",
+    "denomailer": "^0.0.0",
+    "mongoose": "^8.9.2"
   },
   "devDependencies": {
     "@iconify/svelte": "^4.0.2",
     "@sveltejs/adapter-auto": "^3.0.0",
     "@sveltejs/kit": "^2.0.0",
     "@sveltejs/vite-plugin-svelte": "^4.0.0",
+    "@types/nodemailer": "^6.4.17",
+    "editorjs-math": "^1.0.2",
+    "nodemailer": "^6.9.16",
     "sass-embedded": "^1.81.0",
     "svelte": "^5.0.0",
     "svelte-check": "^4.0.0",
