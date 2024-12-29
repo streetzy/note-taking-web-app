@@ -23,6 +23,15 @@ export async function create_user(email: string, username: string, password: str
     }
 }
 
+export async function set_user_avatar_image(user_id: string, image_base64: string, _is_png: boolean) {
+    await User.findByIdAndUpdate(user_id, {
+        avatar_image: {
+            data: image_base64,
+            is_png: _is_png
+        }
+    }).exec();
+}
+
 export async function update_user_username(user_id: string, _username: string) {
     await User.findByIdAndUpdate(user_id, { username: _username} ).exec();
 }
@@ -51,12 +60,17 @@ export async function get_user_from_email(email: string) {
     return {
         id: user._id,
         email: user.email,
-        username: user.username
+        username: user.username,
+        avatar_image: user.avatar_image
     }
 }
 
 export interface _IUser {
     id: string,
     email: string,
-    username: string
+    username: string,
+    avatar_image: {
+        data: string,
+        is_png: boolean
+    }
 }

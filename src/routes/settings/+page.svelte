@@ -6,11 +6,11 @@
     export let data: PageData;
     export let form: ActionData
 
-    console.log(data.user.username);
+
 </script>
 
 <div class="content">
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         <h1>Edit account details</h1>
         {#if form}
         <div class="error">{form?.message ?? ""}</div>
@@ -30,6 +30,15 @@
         <label>
             Profile picture
             <div class="profile-picture">
+                {#if data.user.avatar_image.data !== undefined}
+                <img
+                    class="icon"
+                    src="{`data:image/${data.user.avatar_image.is_png ? "png" : "jpg"};base64,${data.user.avatar_image.data}`}"
+                    alt="Your profile avatar"
+                    width="64"
+                    height="64"
+                />
+                {:else}
                 <img
                     class="icon"
                     src="carbon--unknown-user.png"
@@ -37,10 +46,11 @@
                     width="64"
                     height="64"
                 />
+                {/if}
                 <input
                     name="avatar"
                     type="file"
-                    accept="image/png, image/jpeg"
+                    accept=".png, .jpg, .jpeg"
                 />
             </div>
         </label>

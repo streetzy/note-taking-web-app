@@ -5,7 +5,8 @@ const user_schema = new mongoose.Schema<IUser>({
     email: { type: String, required: true },
     password: { type: String, required: true },
     avatar_image: {
-        data: Buffer,
+        data: String,
+        is_png: Boolean
     },
     notebooks: [{ type: mongoose.Schema.Types.ObjectId, ref: "notebook" }],
 });
@@ -86,10 +87,10 @@ export interface IUser {
     email: String,
     password: String,
     avatar_image?: {
-        data: Buffer
+        data: string,
+        is_png: boolean
     },
     notebooks: [mongoose.Types.ObjectId]
-
 };
 
 export interface INotebook {

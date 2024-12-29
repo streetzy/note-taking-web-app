@@ -4,10 +4,12 @@ import Header from "@editorjs/header";
 import EditorjsList from "@editorjs/list";
 import Paragraph from "@editorjs/paragraph";
 import CodeTool from "@editorjs/code";
-import ImageTool from "@editorjs/image";
 import Table from "@editorjs/table";
+
+// @ts-ignore
+import SimpleImage from "@editorjs/simple-image";
 
 // @ts-ignore
 import MathTex from 'editorjs-math';
 
-export { Chart, EditorJS, Header, EditorjsList, Paragraph, CodeTool, ImageTool, Table, MathTex };
+export { Chart, EditorJS, Header, EditorjsList, Paragraph, CodeTool, Table, MathTex, SimpleImage };

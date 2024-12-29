@@ -1,6 +1,6 @@
 import { sha256 } from "@oslojs/crypto/sha2";
 import { encodeBase32LowerCaseNoPadding, encodeHexLowerCase } from "@oslojs/encoding";
-import { User, Session } from "$lib/models/models";
+import { User, Session, type IUser } from "$lib/models/models";
 import type { RequestEvent } from "@sveltejs/kit";
 import type { _IUser } from "./user";
 
@@ -16,7 +16,7 @@ export async function validate_session_token(token: string) {
         return { session: null, user: null };
     }
 
-    const user_data = await User.findById(session_data.user).exec()
+    const user_data = await User.findById(session_data.user).exec();
 
     if (!user_data) {
         return { session: null, user: null };
@@ -29,9 +29,10 @@ export async function validate_session_token(token: string) {
     }
 
     const user: _IUser = {
-        id: user_data._id.toString(),
+        id: user_data.id.toString(),
         email: user_data.email.toString(),
-        username: user_data.username.toString()
+        username: user_data.username.toString(),
+        avatar_image: user_data.avatar_image.toObject()
     }
 
     if (Date.now() >= session.expires_at.getTime()) {

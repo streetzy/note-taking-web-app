@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Charts } from '$lib/editorjs-custom-modules/charts'
-    import { EditorJS, Header, EditorjsList, Paragraph, CodeTool, ImageTool, Table, MathTex } from "$lib/index";
+    import { EditorJS, Header, EditorjsList, Paragraph, CodeTool, Table, MathTex, SimpleImage } from "$lib/index";
     import Icon from '@iconify/svelte';
     import { getContext, onMount, type Snippet } from 'svelte';
     import type { Writable } from 'svelte/store';
@@ -39,15 +39,7 @@
             list: EditorjsList,
             paragraph: Paragraph,
             code: CodeTool,
-            image: 
-            {
-                class: ImageTool,
-                config: {
-                    endpoints: {
-                        byFile: '',
-                    }
-                }
-            },
+            image: SimpleImage,
             math: {
                 class: MathTex,
             },

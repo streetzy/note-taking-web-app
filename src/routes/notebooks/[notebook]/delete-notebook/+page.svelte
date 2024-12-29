@@ -1,11 +1,9 @@
 <script lang="ts">
-    import { formatNumber } from "chart.js/helpers";
     import { getContext, type Snippet } from "svelte";
     import type { Writable } from "svelte/store";
     import type { ActionData, PageData } from "./$types";
 
     let nav_content = getContext<Writable<Snippet | null>>("layout")
-
     let { form, data } : { form: ActionData, data: PageData} = $props(); 
     $nav_content = navbar_button;
     let error = true;
@@ -19,12 +17,8 @@
 
 <div class="content">
     <form method="POST" class="notebook-container">
-        <div class="header">Notebook name</div>
-        {#if form}
-            <div class="error">{form?.message}</div>
-        {/if}
-        <input type="text" name="notebook-name" required>
-        <button>Create notebook</button>
+        <div class="header">Are you sure?</div>
+        <button>Delete</button>
     </form>
 </div>
 

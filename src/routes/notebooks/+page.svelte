@@ -2,6 +2,26 @@
     import { getContext, type Snippet } from "svelte";
     import type { Writable } from "svelte/store";
     import Icon from '@iconify/svelte';
+    import type { PageData } from "./$types";
+
+    let user_notebooks: { notebook_id: string, notebook_name: string}[] = $state([]);
+    let { data } : {data: PageData} = $props();
+    if (!data.user_notebooks) {
+        user_notebooks = [];
+    } else {
+        user_notebooks = data.user_notebooks
+    }
+
+    let search_bar_value = $state("");
+
+    let filtered_notebooks = $derived.by(() => {
+        const trimmed_search = search_bar_value.trim().toLowerCase();
+        if (trimmed_search === "") {
+            return user_notebooks;
+        }
+
+        return user_notebooks.filter((notebook) => notebook.notebook_name.toLowerCase().includes(trimmed_search));
+    })
 
     let nav_content = getContext<Writable<Snippet | null>>("layout")
 
@@ -17,115 +37,20 @@
 <div class="content">
     <div class="search-field">
         <h3>Search:</h3>
-        <input type="text" placeholder="Notebook name..." class="notebook-filter">
+        <input type="text" placeholder="Notebook name..." bind:value={search_bar_value} class="notebook-filter">
     </div>
     
     <div class="notebooks">
+        {#each filtered_notebooks as notebook }
         <div class="notebook-container">
             <Icon icon="carbon:notebook" width="80" height="80"/>
-            <h3>Maths</h3>
+            <h3>{notebook.notebook_name}</h3>
             <div class="notebook-buttons">
-                <a href="/notebooks/rename-notebook">Rename</a>
-                <button>Delete</button>
+                <a href={`/notebooks/${notebook.notebook_id}/rename-notebook`}>Rename</a>
+                <a href={`/notebooks/${notebook.notebook_id}/delete-notebook`}>Delete</a>
             </div>
         </div>
-        <div class="notebook-container">
-            <Icon icon="carbon:notebook" width="80" height="80"/>
-            <h3>Maths</h3>
-            <div class="notebook-buttons">
-                <a href="/notebooks/rename-notebook">Rename</a>
-                <button>Delete</button>
-            </div>
-        </div>
-        <div class="notebook-container">
-            <Icon icon="carbon:notebook" width="80" height="80"/>
-            <h3>Maths</h3>
-            <div class="notebook-buttons">
-                <a href="/notebooks/rename-notebook">Rename</a>
-                <button>Delete</button>
-            </div>
-        </div>
-        <div class="notebook-container">
-            <Icon icon="carbon:notebook" width="80" height="80"/>
-            <h3>Maths</h3>
-            <div class="notebook-buttons">
-                <a href="/notebooks/rename-notebook">Rename</a>
-                <button>Delete</button>
-            </div>
-        </div>
-        <div class="notebook-container">
-            <Icon icon="carbon:notebook" width="80" height="80"/>
-            <h3>Maths</h3>
-            <div class="notebook-buttons">
-                <a href="/notebooks/rename-notebook">Rename</a>
-                <button>Delete</button>
-            </div>
-        </div>
-        <div class="notebook-container">
-            <Icon icon="carbon:notebook" width="80" height="80"/>
-            <h3>Maths</h3>
-            <div class="notebook-buttons">
-                <a href="/notebooks/rename-notebook">Rename</a>
-                <button>Delete</button>
-            </div>
-        </div>
-        <div class="notebook-container">
-            <Icon icon="carbon:notebook" width="80" height="80"/>
-            <h3>Maths</h3>
-            <div class="notebook-buttons">
-                <a href="/notebooks/rename-notebook">Rename</a>
-                <button>Delete</button>
-            </div>
-        </div>
-        <div class="notebook-container">
-            <Icon icon="carbon:notebook" width="80" height="80"/>
-            <h3>Maths</h3>
-            <div class="notebook-buttons">
-                <a href="/notebooks/rename-notebook">Rename</a>
-                <button>Delete</button>
-            </div>
-        </div>
-        <div class="notebook-container">
-            <Icon icon="carbon:notebook" width="80" height="80"/>
-            <h3>Maths</h3>
-            <div class="notebook-buttons">
-                <a href="/notebooks/rename-notebook">Rename</a>
-                <button>Delete</button>
-            </div>
-        </div>
-        <div class="notebook-container">
-            <Icon icon="carbon:notebook" width="80" height="80"/>
-            <h3>Maths</h3>
-            <div class="notebook-buttons">
-                <a href="/notebooks/rename-notebook">Rename</a>
-                <button>Delete</button>
-            </div>
-        </div>
-        <div class="notebook-container">
-            <Icon icon="carbon:notebook" width="80" height="80"/>
-            <h3>Maths</h3>
-            <div class="notebook-buttons">
-                <a href="/notebooks/rename-notebook">Rename</a>
-                <button>Delete</button>
-            </div>
-        </div>
-        <div class="notebook-container">
-            <Icon icon="carbon:notebook" width="80" height="80"/>
-            <h3>Maths</h3>
-            <div class="notebook-buttons">
-                <a href="/notebooks/rename-notebook">Rename</a>
-                <button>Delete</button>
-            </div>
-        </div>
-        <div class="notebook-container">
-            <Icon icon="carbon:notebook" width="80" height="80"/>
-            <h3>Maths</h3>
-            <div class="notebook-buttons">
-                <a href="/notebooks/rename-notebook">Rename</a>
-                <button>Delete</button>
-            </div>
-        </div>
-
+        {/each}
     </div>
     
 </div>

@@ -1,9 +1,10 @@
 <script lang="ts">
     import { getContext, type Snippet } from "svelte";
     import type { Writable } from "svelte/store";
+    import type { ActionData, PageData } from "./$types";
 
     let nav_content = getContext<Writable<Snippet | null>>("layout")
-
+    let { form, data } : { form: ActionData, data: PageData} = $props(); 
     $nav_content = navbar_button;
     let error = true;
 </script>
@@ -15,14 +16,14 @@
 {/snippet}
 
 <div class="content">
-    <div class="notebook-container">
+    <form method="POST" class="notebook-container">
         <div class="header">Notebook name</div>
-        {#if error}
-            <div class="error">Notebook name can't be empty</div>
+        {#if form}
+            <div class="error">{form?.message}</div>
         {/if}
-        <input type="text">
+        <input type="text" name="renamed-notebook">
         <button>Rename notebook</button>
-    </div>
+    </form>
 </div>
 
 <style lang="scss">

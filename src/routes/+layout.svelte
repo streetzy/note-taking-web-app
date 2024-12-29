@@ -20,8 +20,6 @@
         writable(null),
     );
 
-    console.log(data);
-
     if ( !data.user ) {
         loggedIn = false;
     } else {
