@@ -1,10 +1,10 @@
 To install packages:
 
-deno i
+npm i
 
 To run:
 
-deno run dev
+npm run dev
 
 GitHub:
 https://github.com/streetzy/note-taking-web-app
