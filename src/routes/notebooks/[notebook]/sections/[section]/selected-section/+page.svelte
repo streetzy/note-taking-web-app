@@ -58,7 +58,11 @@
 
     $effect(() => {
         if (wanted_page === null) return;
-        if (wanted_page.editorjs_content === undefined) return;
+        if (wanted_page.editorjs_content.blocks === undefined) {
+            editor.clear();
+            return;
+        }
+
         editor.render(wanted_page.editorjs_content as OutputData);
     })
 
