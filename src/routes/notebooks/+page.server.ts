@@ -4,15 +4,15 @@ import { redirect } from "@sveltejs/kit";
 import type { PageServerLoadEvent } from "./$types";
 
 export async function load(event: PageServerLoadEvent) {
-    if (event.locals.user === null) {
-        return redirect(302, '/login');
-    }
+  if (event.locals.user === null) {
+    return redirect(302, "/login");
+  }
 
-    const user_notebooks = await get_user_notebooks(event.locals.user.id);
+  const user_notebooks = await get_user_notebooks(event.locals.user.id);
 
-    if (user_notebooks === null) {
-        return {};
-    }
-    console.log(user_notebooks);
-    return { user_notebooks };
+  if (user_notebooks === null) {
+    return {};
+  }
+
+  return { user_notebooks };
 }

@@ -9,6 +9,7 @@ const user_schema = new mongoose.Schema<IUser>({
     is_png: Boolean,
   },
   notebooks: [{ type: mongoose.Schema.Types.ObjectId, ref: "notebook" }],
+  posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "post" }],
 });
 
 const notebook_schema = new mongoose.Schema<INotebook>({
@@ -58,6 +59,46 @@ const password_reset_session_schema = new mongoose.Schema<IPasswordReset>({
   expires_at: { type: Number, required: true },
 });
 
+const post_schema = new mongoose.Schema<IPost>({
+  title: { type: String, required: true },
+  content: { type: String, required: true },
+  tags: [{ type: String, required: true }],
+  author_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+    required: true,
+  },
+  author_name: { type: String, required: true },
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "comment" }],
+  created_at: { type: Number, required: true },
+});
+
+const comment_schema = new mongoose.Schema<IComment>({
+  author_name: { type: String, required: true },
+  parent_post: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "post",
+    required: true,
+  },
+  message: { type: String, required: true },
+});
+
+export interface IPost {
+  title: string;
+  content: string;
+  tags: string[];
+  author_id: mongoose.Types.ObjectId;
+  author_name: string;
+  created_at: number;
+  comments: mongoose.Types.ObjectId[];
+}
+
+export interface IComment {
+  author_name: string;
+  parent_post: mongoose.Types.ObjectId;
+  message: string;
+}
+
 export interface IEditor_Content {
   time: string;
   blocks: { type: string; data: object[] }[];
@@ -92,7 +133,8 @@ export interface IUser {
     data: string;
     is_png: boolean;
   };
-  notebooks: [mongoose.Types.ObjectId];
+  notebooks: mongoose.Types.ObjectId[];
+  posts: mongoose.Types.ObjectId[];
 }
 
 export interface INotebook {
@@ -136,3 +178,7 @@ export const Section =
   mongoose.models["section"] || mongoose.model("section", section_schema);
 export const Page =
   mongoose.models["page"] || mongoose.model("page", page_schema);
+export const Post =
+  mongoose.models["post"] || mongoose.model("post", post_schema);
+export const Comment =
+  mongoose.models["comment"] || mongoose.model("comment", comment_schema);

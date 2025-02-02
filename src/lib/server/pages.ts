@@ -81,7 +81,6 @@ export async function notebook_section_pages(
         version: String;
       };
     }) => {
-      console.log(page);
       const content = JSON.parse(JSON.stringify(page.editorjs_content));
       delete content["_id"];
       return {

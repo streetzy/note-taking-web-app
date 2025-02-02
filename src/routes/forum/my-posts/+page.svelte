@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import Post from "../../components/Post.svelte";
+  import UserPost from "../../../components/UserPost.svelte";
   import { page } from "$app/state";
   import { getContext, type Snippet } from "svelte";
   import type { Writable } from "svelte/store";
@@ -8,7 +8,6 @@
   let page_size = 10;
   let current_page =
     (Number(page.url.searchParams.get("skip")) || 0) / page_size;
-  let search_bar_value = $state("");
 
   let nav_content = getContext<Writable<Snippet | null>>("layout");
   $nav_content = navbar_button;
@@ -35,46 +34,31 @@
   } else {
     posts = data.posts;
   }
-
-  if (!data.search_bar_value) {
-    search_bar_value = "";
-  } else {
-    search_bar_value = data.search_bar_value;
-  }
 </script>
 
 {#snippet navbar_button()}
   <a class="navigation" href={`/forum/create-post`}>create post</a>
-  <a class="navigation" href={`/forum/my-posts`}>my posts</a>
+  <a class="navigation" href={`/forum`}>all posts</a>
 {/snippet}
 
 <div class="page-content">
-  <form method="GET" class="search-field" data-sveltekit-reload>
-    <input
-      type="text"
-      placeholder="Post name, content, tags, author..."
-      name="query"
-      bind:value={search_bar_value}
-      class="post-filter"
-    />
-    <button class="search-button">Search</button>
-  </form>
   <div class="post-container">
     {#each posts as post}
-      <Post
+      <UserPost
         post_id={post.post_id}
         title={post.title}
         author_name={post.author_name}
         tags={post.tags}
-      ></Post>
+      ></UserPost>
     {/each}
   </div>
   <div class="pages">
     <div class="previous pagination-container">
       {#if current_page > 0}
         <a
+          class="button"
           target="_self"
-          href={`/forum?limit=${page_size}&skip=${Math.max(0, page_size * (current_page - 1))}`}
+          href={`/forum/myforum?limit=${page_size}&skip=${Math.max(0, page_size * (current_page - 1))}`}
           >Previous</a
         >
       {/if}
@@ -88,7 +72,7 @@
         <a
           class="button"
           target="_self"
-          href={`/forum?limit=${page_size}&skip=${page_size * (current_page + 1)}`}
+          href={`/forum/my-posts?limit=${page_size}&skip=${page_size * (current_page + 1)}`}
           >Next</a
         >
       {/if}
@@ -97,16 +81,6 @@
 </div>
 
 <style lang="scss">
-  .search-button {
-    font-size: 24px;
-    height: 50%;
-    border-radius: 10px;
-    border-style: none;
-    color: white;
-    padding: 0 1rem;
-    background-color: var(--button-color);
-  }
-
   .pages {
     width: 66%;
     display: flex;
@@ -125,6 +99,10 @@
 
   .navigation {
     font-size: 32px;
+  }
+
+  .button {
+    font-size: 20px;
   }
 
   .button {
@@ -183,24 +161,6 @@
     white-space: nowrap;
     overflow: hidden;
     max-width: 90%;
-  }
-
-  .search-field input {
-    background-color: var(--input-field-color);
-    border-radius: 10px;
-    border-style: none;
-    width: 25%;
-    height: 50%;
-    padding-left: 1rem;
-  }
-
-  .search-field {
-    display: flex;
-    width: 100%;
-    min-height: 15%;
-    justify-content: center;
-    gap: 1rem;
-    align-items: center;
   }
 
   .post-filter::placeholder {
