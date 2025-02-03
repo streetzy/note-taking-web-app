@@ -111,13 +111,12 @@
     gap: 1rem;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 80%;
     width: 40%;
-    padding-bottom: 4rem;
   }
 
   form label {
-    min-height: 16.66%;
+    min-height: 10%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -139,7 +138,7 @@
   }
 
   .buttons {
-    height: 16.66%;
+    min-height: 10%;
     display: flex;
     flex-direction: column;
     gap: 12px;

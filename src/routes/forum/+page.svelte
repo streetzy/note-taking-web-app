@@ -73,6 +73,7 @@
     <div class="previous pagination-container">
       {#if current_page > 0}
         <a
+          class="button"
           target="_self"
           href={`/forum?limit=${page_size}&skip=${Math.max(0, page_size * (current_page - 1))}`}
           >Previous</a
