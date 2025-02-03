@@ -116,7 +116,7 @@
   }
 
   form label {
-    min-height: 10%;
+    padding: 0.5rem 0;
     height: auto;
     width: 100%;
     display: flex;
@@ -127,16 +127,14 @@
 
   input {
     width: 100%;
-    padding: 0;
     background-color: var(--input-field-color);
     border: 0;
     border-radius: 10px;
     height: auto;
-    padding: 0.5rem;
+    padding: 1rem;
     color: white;
     font-size: 24px;
     box-sizing: border-box;
-    padding: 0.5rem;
   }
 
   .buttons {
@@ -147,7 +145,7 @@
   }
 
   button {
-    padding: 0.5rem 0;
+    padding: 2rem 0;
     margin: 0;
     border: 0;
     border-radius: 10px;
