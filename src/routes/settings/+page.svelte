@@ -92,14 +92,14 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 90dvh;
+    min-height: 80dvh;
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
   }
 
   h1 {
-    height: 12%;
+    padding: 0.5rem 0;
     text-align: center;
     margin: 0;
     font-weight: 400;
@@ -111,12 +111,13 @@
     gap: 1rem;
     display: flex;
     flex-direction: column;
-    height: 80%;
+    min-height: 80%;
     width: 40%;
   }
 
   form label {
     min-height: 10%;
+    height: auto;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -130,7 +131,8 @@
     background-color: var(--input-field-color);
     border: 0;
     border-radius: 10px;
-    height: 100%;
+    height: auto;
+    padding: 0.5rem;
     color: white;
     font-size: 24px;
     box-sizing: border-box;
@@ -138,15 +140,14 @@
   }
 
   .buttons {
-    min-height: 10%;
+    height: auto;
     display: flex;
     flex-direction: column;
     gap: 12px;
   }
 
   button {
-    min-height: 100%;
-    padding: 0;
+    padding: 0.5rem 0;
     margin: 0;
     border: 0;
     border-radius: 10px;
