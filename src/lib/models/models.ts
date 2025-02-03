@@ -44,16 +44,9 @@ const session_schema = new mongoose.Schema<ISession>({
   expires_at: { type: Number, required: true },
 });
 
-const email_verification_request_schema =
-  new mongoose.Schema<IEmailVerification>({
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true },
-    email: { type: String, required: true },
-    code: { type: String, required: true },
-    expires_at: { type: Number, required: true },
-  });
-
 const password_reset_session_schema = new mongoose.Schema<IPasswordReset>({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true },
+  token: { type: String, required: true, unique: true },
   email: { type: String, required: true },
   code: { type: String, required: true },
   expires_at: { type: Number, required: true },
@@ -105,17 +98,11 @@ export interface IEditor_Content {
   version: string;
 }
 
-export interface IEmailVerification {
-  user: mongoose.Types.ObjectId;
-  email: String;
-  code: String;
-  expires_at: number;
-}
-
 export interface IPasswordReset {
   user: mongoose.Types.ObjectId;
-  email: String;
-  code: String;
+  token: string;
+  email: string;
+  code: string;
   expires_at: number;
 }
 
@@ -160,14 +147,8 @@ export interface IPage {
 }
 
 export const Password_reset_session =
-  mongoose.models["password reset session"] ||
-  mongoose.model("password reset session", password_reset_session_schema);
-export const Email_verification_request =
-  mongoose.models["email verification request"] ||
-  mongoose.model(
-    "email verification request",
-    email_verification_request_schema
-  );
+  mongoose.models["PasswordResetSession"] ||
+  mongoose.model("PasswordResetSession", password_reset_session_schema);
 export const Session =
   mongoose.models["session"] || mongoose.model("session", session_schema);
 export const User =

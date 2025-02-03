@@ -43,8 +43,8 @@
           <div class="header-button-container">
             <h4>Add a comment!</h4>
             <div class="button-error-container">
-              {#if form}
-                <div class="error">{form?.message}</div>
+              {#if form?.error}
+                <div class="error">{form?.error}</div>
               {/if}
               <button>Submit comment</button>
             </div>

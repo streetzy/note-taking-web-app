@@ -14,5 +14,5 @@ export async function load(event: PageServerLoadEvent) {
 
   await invalidate_session(event.locals.session.id);
   delete_session_token_cookie(event);
-  throw redirect(302, "/");
+  throw redirect(302, "/login");
 }

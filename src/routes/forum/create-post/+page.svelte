@@ -85,7 +85,7 @@
   }
 
   .content-container {
-    width: 100dvw;
+    width: 100%;
     height: 80dvh;
     display: flex;
     justify-content: center;

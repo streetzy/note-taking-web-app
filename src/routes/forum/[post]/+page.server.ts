@@ -22,13 +22,13 @@ export const actions = {
 
     if (typeof comment !== "string") {
       return fail(400, {
-        message: "Invalid or missing field",
+        error: "Invalid or missing field",
       });
     }
 
     if (comment.length === 0) {
       return fail(400, {
-        message: "Can't be empty",
+        error: "Can't be empty",
       });
     }
 

@@ -2,8 +2,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&display=swap"); //Exo instead of Sansation, Sansation isn't available on Google Fonts
 :root {
   --input-field-color: rgba(40, 32, 44, 0.51);
-  --error-field-color: #5D1E26;
-  --success-field-color: #1E5D47;
+  --error-field-color: #5d1e26;
+  --success-field-color: #1e5d47;
   --button-color: rgba(94, 39, 117, 0.45);
 }
 
@@ -26,4 +26,8 @@ body {
   top: 0;
   left: 0;
   color: #ffffff;
+}
+
+button {
+  cursor: pointer;
 }

@@ -7,7 +7,7 @@ import {
 import { type RequestEvent, fail, redirect } from "@sveltejs/kit";
 
 export async function load(event: RequestEvent) {
-  if (event.locals.session === null || event.locals.user === null) {
+  if (event.locals.user === null) {
     return redirect(302, "/login");
   }
 
@@ -23,7 +23,7 @@ export const actions = {
 async function action(event: RequestEvent) {
   if (event.locals.session === null || event.locals.user === null) {
     return fail(401, {
-      message: "Not authenticated",
+      error: "Not authenticated",
     });
   }
 
@@ -33,16 +33,16 @@ async function action(event: RequestEvent) {
   const confirmed_password = form_data.get("confirm-password");
   const avatar_image = form_data.get("avatar") as File;
 
-  if (avatar_image.size === 0)
-    return fail(400, { message: "No file provided" });
-  if (avatar_image.size > 1000000)
-    return fail(400, { message: "File size larger than 1MB" });
-  if (
-    !["image/png", "image/jpeg", "image/jpg"].some(
-      (v) => v === avatar_image.type
+  if (avatar_image && avatar_image.size > 0) {
+    if (avatar_image.size > 1000000)
+      return fail(400, { error: "File size larger than 1MB" });
+    if (
+      !["image/png", "image/jpeg", "image/jpg"].some(
+        (v) => v === avatar_image.type
+      )
     )
-  )
-    return fail(400, { message: "Invalid file type" });
+      return fail(400, { message: "Invalid file type" });
+  }
 
   if (
     typeof password !== "string" ||
@@ -50,24 +50,27 @@ async function action(event: RequestEvent) {
     typeof username !== "string"
   ) {
     return fail(400, {
-      message: "Invalid or missing fields",
+      error: "Invalid or missing fields",
     });
   }
 
   if (password !== confirmed_password) {
     return fail(400, {
-      message: "Passwords don't match",
+      error: "Passwords don't match",
     });
   }
 
   const base_64 = Buffer.from(await avatar_image.arrayBuffer()).toString(
     "base64"
   );
-  await set_user_avatar_image(
-    event.locals.user.id,
-    base_64,
-    avatar_image.type === "image/png"
-  );
+
+  if (avatar_image.size !== 0) {
+    await set_user_avatar_image(
+      event.locals.user.id,
+      base_64,
+      avatar_image.type === "image/png"
+    );
+  }
 
   if (username.length <= 31 && username.length >= 4) {
     await update_user_username(event.locals.user.id, username);
