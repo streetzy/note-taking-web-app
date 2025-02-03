@@ -9,7 +9,7 @@ import { Session } from "$lib/models/models.js";
 import { check_username_availability } from "$lib/server/username.js";
 
 export const actions = {
-  default: action,
+  submit: action,
 };
 
 async function action(event: RequestEvent) {

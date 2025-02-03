@@ -2,7 +2,7 @@ import { remove_post } from "$lib/server/post";
 import { redirect } from "@sveltejs/kit";
 
 export const actions = {
-  default: async ({ params, locals }) => {
+  submit: async ({ params, locals }) => {
     if (locals.user === null) {
       return redirect(302, "/login");
     }

@@ -1,13 +1,31 @@
 <script lang="ts">
+  import { enhance } from "$app/forms";
   import type { ActionData } from "./$types";
   import type { PageData } from "./$types";
 
-  export let data: PageData;
-  export let form: ActionData;
+  let { data, form }: { data: PageData; form: ActionData } = $props();
+
+  let creating = $state(false);
 </script>
 
 <div class="content">
-  <form method="POST" enctype="multipart/form-data">
+  <form
+    method="POST"
+    action="?/submit"
+    enctype="multipart/form-data"
+    use:enhance={() => {
+      creating = true;
+
+      return async ({ update, result }) => {
+        await update();
+        if (result.type === "redirect") {
+          window.location.href = result.location;
+        } else {
+          creating = false;
+        }
+      };
+    }}
+  >
     <h1>Edit account details</h1>
     {#if form?.error}
       <div class="error">{form?.error ?? ""}</div>
@@ -54,7 +72,7 @@
       </div>
     </label>
     <div class="buttons">
-      <button>Submit</button>
+      <button disabled={creating}>Submit</button>
     </div>
   </form>
 </div>

@@ -1,17 +1,35 @@
 <script lang="ts">
+  import { enhance } from "$app/forms";
   import type { ActionData } from "./$types";
 
   function email_sent_toggle() {
     email_sent = true;
   }
 
-  let email_sent = false;
+  let email_sent = $state(false);
 
-  export let form: ActionData;
+  let { form }: { form: ActionData } = $props();
+  let creating = $state(false);
 </script>
 
 <div class="content">
-  <form method="POST" class="container">
+  <form
+    method="POST"
+    action="?/submit"
+    class="container"
+    use:enhance={() => {
+      creating = true;
+
+      return async ({ update, result }) => {
+        await update();
+        if (result.type === "redirect") {
+          window.location.href = result.location;
+        } else {
+          creating = false;
+        }
+      };
+    }}
+  >
     <h1>Enter account's email address</h1>
     {#if email_sent}
       <div class="success">Email sent to address.</div>
@@ -20,7 +38,7 @@
       <p>{form?.message ?? ""}</p>
     {/if}
     <input type="email" id="form-forgot-email" name="email" required />
-    <button onclick={email_sent_toggle}>Send email</button>
+    <button disabled={creating} onclick={email_sent_toggle}>Send email</button>
   </form>
 </div>
 

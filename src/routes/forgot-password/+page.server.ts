@@ -10,7 +10,7 @@ import { get_user_from_email } from "$lib/server/user.js";
 import { fail, redirect, type RequestEvent } from "@sveltejs/kit";
 
 export const actions = {
-  default: action,
+  submit: action,
 };
 
 async function action(event: RequestEvent) {

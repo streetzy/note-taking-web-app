@@ -4,9 +4,13 @@
   import type { ActionData, PageData } from "./$types";
   import Comment from "../../../components/Comment.svelte";
   import { DatasetController } from "chart.js";
+  import { enhance } from "$app/forms";
+  import { resolveRoute } from "$app/paths";
+  import { goto } from "$app/navigation";
 
   let nav_content = getContext<Writable<Snippet | null>>("layout");
   let { data, form }: { data: PageData; form: ActionData } = $props();
+  let creating = $state(false);
 
   let comments: {
     message: string;
@@ -39,17 +43,32 @@
     </div>
     <div class="comment-container">
       {#if data.user}
-        <form method="POST">
+        <form
+          action="?/submit"
+          method="POST"
+          use:enhance={() => {
+            creating = true;
+
+            return async ({ update, result }) => {
+              await update();
+              if (result.type === "redirect") {
+                window.location.href = result.location;
+              } else {
+                creating = false;
+              }
+            };
+          }}
+        >
           <div class="header-button-container">
             <h4>Add a comment!</h4>
             <div class="button-error-container">
               {#if form?.error}
                 <div class="error">{form?.error}</div>
               {/if}
-              <button>Submit comment</button>
+              <button disabled={creating}>Submit comment</button>
             </div>
           </div>
-          <textarea name="comment"></textarea>
+          <textarea name="comment" disabled={creating}></textarea>
         </form>
       {/if}
       <div class="comments">

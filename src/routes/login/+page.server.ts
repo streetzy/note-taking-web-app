@@ -12,7 +12,7 @@ import {
 import { fail, redirect, type RequestEvent } from "@sveltejs/kit";
 
 export const actions = {
-  default: action,
+  submit: action,
 };
 
 async function action(event: RequestEvent) {

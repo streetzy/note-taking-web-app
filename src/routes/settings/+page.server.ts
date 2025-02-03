@@ -17,7 +17,7 @@ export async function load(event: RequestEvent) {
 }
 
 export const actions = {
-  default: action,
+  submit: action,
 };
 
 async function action(event: RequestEvent) {
@@ -74,9 +74,16 @@ async function action(event: RequestEvent) {
 
   if (username.length <= 31 && username.length >= 4) {
     await update_user_username(event.locals.user.id, username);
+  } else {
+    return fail(400, {
+      error: "Username too short",
+    });
   }
   if (password.trim().length !== 0) {
     await update_user_password(event.locals.user.id, confirmed_password);
+    return fail(400, {
+      error: "Password too short",
+    });
   }
 
   return {

@@ -12,7 +12,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 };
 
 export const actions = {
-  default: async ({ params, locals, request }) => {
+  submit: async ({ params, locals, request }) => {
     if (locals.user === null) {
       throw redirect(302, "/login");
     }
@@ -39,6 +39,6 @@ export const actions = {
       comment
     );
 
-    throw redirect(302, `/forum/${params.post}`);
+    return redirect(302, `/forum/${params.post}`);
   },
 };

@@ -11,7 +11,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 };
 
 export const actions = {
-  default: async ({ params, locals, request }) => {
+  submit: async ({ params, locals, request }) => {
     if (locals.user === null) {
       return redirect(302, "/login");
     }

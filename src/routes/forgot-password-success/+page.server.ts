@@ -25,7 +25,7 @@ export async function load(event: RequestEvent) {
 }
 
 export const actions = {
-  default: action,
+  submit: action,
 };
 
 async function action(event: RequestEvent) {

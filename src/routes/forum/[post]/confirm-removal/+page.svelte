@@ -1,8 +1,9 @@
 <script lang="ts">
+  import { enhance } from "$app/forms";
   import { getContext, type Snippet } from "svelte";
   import type { Writable } from "svelte/store";
   let nav_content = getContext<Writable<Snippet | null>>("layout");
-
+  let creating = $state(false);
   $nav_content = navbar_button;
 </script>
 
@@ -11,9 +12,25 @@
   <a href={`/forum/my-posts`}>my posts</a>
 {/snippet}
 
-<form method="POST" class="content-container">
+<form
+  method="POST"
+  class="content-container"
+  action="?/submit"
+  use:enhance={() => {
+    creating = true;
+
+    return async ({ update, result }) => {
+      await update();
+      if (result.type === "redirect") {
+        window.location.href = result.location;
+      } else {
+        creating = false;
+      }
+    };
+  }}
+>
   <h3>Are you sure you wish to remove your post?</h3>
-  <button>Confirm removal</button>
+  <button disabled={creating}>Confirm removal</button>
 </form>
 
 <style lang="scss">

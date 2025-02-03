@@ -2,10 +2,12 @@
   import { getContext, type Snippet } from "svelte";
   import type { Writable } from "svelte/store";
   import type { ActionData, PageData } from "./$types";
+  import { enhance } from "$app/forms";
 
   let nav_content = getContext<Writable<Snippet | null>>("layout");
 
   let { form, data }: { form: ActionData; data: PageData } = $props();
+  let creating = $state(false);
 
   let title: string = $state("");
   let description: string = $state("");
@@ -30,7 +32,22 @@
   <a href={`/forum/my-posts`}>my posts</a>
 {/snippet}
 <div class="content-container">
-  <form method="POST">
+  <form
+    method="POST"
+    action="?/submit"
+    use:enhance={() => {
+      creating = true;
+
+      return async ({ update, result }) => {
+        await update();
+        if (result.type === "redirect") {
+          window.location.href = result.location;
+        } else {
+          creating = false;
+        }
+      };
+    }}
+  >
     <h3>Post editing</h3>
     {#if form}
       <div class="error">{form?.message}</div>
@@ -96,7 +113,7 @@
       </div>
     </div>
     <div class="button-container">
-      <button>Edit post</button>
+      <button disabled={creating}>Edit post</button>
     </div>
   </form>
 </div>

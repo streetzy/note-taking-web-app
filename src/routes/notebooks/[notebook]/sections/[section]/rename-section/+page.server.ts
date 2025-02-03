@@ -11,7 +11,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 };
 
 export const actions = {
-  default: async ({ params, locals, request }) => {
+  submit: async ({ params, locals, request }) => {
     const form_data = await request.formData();
     const renamed_section = form_data.get("renamed-section");
 

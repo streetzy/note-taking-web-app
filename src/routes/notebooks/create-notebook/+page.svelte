@@ -3,11 +3,14 @@
   import { getContext, type Snippet } from "svelte";
   import type { Writable } from "svelte/store";
   import type { ActionData, PageData } from "./$types";
+  import { enhance } from "$app/forms";
 
   let nav_content = getContext<Writable<Snippet | null>>("layout");
 
   let { form, data }: { form: ActionData; data: PageData } = $props();
   $nav_content = navbar_button;
+
+  let creating = $state(false);
 </script>
 
 {#snippet navbar_button()}
@@ -17,13 +20,29 @@
 {/snippet}
 
 <div class="content">
-  <form method="POST" class="notebook-container">
+  <form
+    method="POST"
+    class="notebook-container"
+    action="?/submit"
+    use:enhance={() => {
+      creating = true;
+
+      return async ({ update, result }) => {
+        await update();
+        if (result.type === "redirect") {
+          window.location.href = result.location;
+        } else {
+          creating = false;
+        }
+      };
+    }}
+  >
     <div class="header">Notebook name</div>
     {#if form}
       <div class="error">{form?.message}</div>
     {/if}
     <input type="text" name="notebook-name" required />
-    <button>Create notebook</button>
+    <button disabled={creating}>Create notebook</button>
   </form>
 </div>
 

@@ -18,6 +18,7 @@
   import type { OutputData } from "@editorjs/editorjs";
 
   let { data, form }: { data: PageData; form: ActionData } = $props();
+  let creating = $state(false);
 
   function toggle_editor() {
     in_editor = !in_editor;
@@ -133,13 +134,34 @@
           >
         {/each}
       </div>
-      <form method="POST" class="add-page">
+      <form
+        method="POST"
+        class="add-page"
+        action="?/submit"
+        use:enhance={() => {
+          creating = true;
+
+          return async ({ update, result }) => {
+            await update();
+            if (result.type === "redirect") {
+              window.location.href = result.location;
+            } else {
+              creating = false;
+            }
+          };
+        }}
+      >
         {#if form}
           <div class="error">{form?.message}</div>
         {/if}
         <div class="input-container">
-          <input type="text" name="page-name" placeholder="My page" />
-          <button>
+          <input
+            type="text"
+            name="page-name"
+            placeholder="My page"
+            disabled={creating}
+          />
+          <button disabled={creating}>
             <Icon
               icon="carbon:add"
               width="32"

@@ -1,11 +1,28 @@
 <script lang="ts">
+  import { enhance } from "$app/forms";
   import type { ActionData } from "./$types";
 
-  export let form: ActionData;
+  let { form }: { form: ActionData } = $props();
+  let creating = $state(false);
 </script>
 
 <div class="content">
-  <form method="POST">
+  <form
+    method="POST"
+    action="?/submit"
+    use:enhance={() => {
+      creating = true;
+
+      return async ({ update, result }) => {
+        await update();
+        if (result.type === "redirect") {
+          window.location.href = result.location;
+        } else {
+          creating = false;
+        }
+      };
+    }}
+  >
     <h1>Register</h1>
     {#if form?.error}
       <div class="error">{form?.error ?? ""}</div>
@@ -34,7 +51,7 @@
       />
     </label>
     <div class="buttons">
-      <button>Register account</button>
+      <button disabled={creating}>Register account</button>
       <a href="/login">Already registered?</a>
     </div>
   </form>
