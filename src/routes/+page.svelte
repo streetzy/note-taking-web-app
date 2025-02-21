@@ -4,6 +4,9 @@
   import type { Writable } from "svelte/store";
   let nav_content = getContext<Writable<Snippet | null>>("layout");
 
+
+  let date = new Date();
+  let current_year = date.getFullYear();
   $nav_content = navbar_button;
 </script>
 
@@ -34,7 +37,7 @@
   </div>
   <footer>
     <p class="contact">Contact me at adamsindler@gmail.com</p>
-    <p class="copyright">© 2024 Adam Šindler</p>
+    <p class="copyright">© {current_year} Adam Šindler</p>
   </footer>
 </div>
 
