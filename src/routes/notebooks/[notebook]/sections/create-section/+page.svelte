@@ -174,7 +174,7 @@
     }
   }
   @media only screen and (max-width: 768px) {
-    section-container {
+    .section-container {
       width: 80%;
 
       input {
