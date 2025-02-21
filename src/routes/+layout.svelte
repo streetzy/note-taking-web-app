@@ -28,13 +28,13 @@
 </script>
 
 <svelte:head>
-  <title>Inscribe</title>
+  <title>Inscribed</title>
 </svelte:head>
 
 <nav class="top-nav">
   <div class="user-nav-menu">
     <div class="page-name">
-      <a href="/">inscribe</a>
+      <a href="/">inscribed</a>
     </div>
     {#if !UNWANTED_URLS.includes(page.url.pathname)}
       <div class="user-nav-buttons">
