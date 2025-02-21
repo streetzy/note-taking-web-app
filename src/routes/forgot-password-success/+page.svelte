@@ -42,7 +42,7 @@
   </form>
 </div>
 
-<style lang="scss">
+<style>
   button {
     cursor: pointer;
   }
@@ -113,23 +113,10 @@
     color: white;
   }
 
-  .error {
-    height: 12%;
-    background-color: var(--error-field-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    border-radius: 10px;
-  }
-
   @media only screen and (max-width: 1300px) {
     form {
       height: 60%;
       width: 50%;
-    }
-    .error {
-      font-size: 18px;
     }
     button {
       font-size: 16px;
@@ -148,9 +135,6 @@
     form {
       height: 50%;
       width: 60%;
-    }
-    .error {
-      font-size: 14px;
     }
     button {
       font-size: 12px;
