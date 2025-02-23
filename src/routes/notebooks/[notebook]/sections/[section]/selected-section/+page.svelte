@@ -275,11 +275,6 @@
       top: 0;
     }
   }
-
-  body {
-    overflow: hidden;
-  }
-
   :global(.ce-toolbar__plus, .ce-toolbar__settings-btn) {
     background-color: white;
   }
